@@ -5,7 +5,6 @@
 '''
 from flask import Flask
 from waitress import serve
-from flask_sqlalchemy import SQLAlchemy
 from flask import jsonify, make_response, render_template
 from flask import request, url_for, redirect, flash, session
 from flask_bootstrap import Bootstrap
@@ -15,12 +14,19 @@ import os
 
 # Configuração do app, criptografia, db, bootstrap e CSRF
 app = Flask(__name__) 
+
 app.config['SECRET_KEY'] = os.urandom(24)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////temp/KMApp.db'
-db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
 CSRFProtect(app)
 CSV_DIR = '/flask/'
+
+# Conexão com db sqlite
+try:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/KMApp.db'
+    from models import db
+    db.init_app(app)
+except:
+    print("Erro ao conectar-se ao sqlite")
 
 # Configuração do logging
 logging.basicConfig(
@@ -30,5 +36,4 @@ logging.basicConfig(
 )
 
 # Importação das rotas Rota 
-from key_manager.routes import index 
-from key_manager.routes import admin
+from key_manager.routes import *
