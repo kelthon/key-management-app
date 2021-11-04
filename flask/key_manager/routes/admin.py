@@ -9,5 +9,8 @@ admin = Blueprint("admin", __name__, url_prefix="/admin", template_folder='./tem
 @admin.route("/")
 def admHome():
     return (u"Administração")
+@admin.route("/new/key", methods=["GET", "POST"])
+def newKey():
+    return "new key"
 
 app.register_blueprint(admin)
