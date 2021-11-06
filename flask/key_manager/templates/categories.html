@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Categorias</h1>
+    {% for category in categories %}
+        <div class="card">
+            <div class="card-body">
+                {{ category.slug }}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

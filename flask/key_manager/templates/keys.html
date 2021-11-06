@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Chaves</h1>
+{% for key in keys %}
+    <div class="card">
+        <div class="card-body">
+            {{ key.slug }}
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}
