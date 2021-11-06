@@ -23,7 +23,7 @@ CSV_DIR = '/flask/'
 # Conexão com db sqlite
 try:
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/KMApp.db'
-    from models import db
+    from key_manager.models import db
     db.init_app(app)
 except:
     print("Erro ao conectar-se ao sqlite")
@@ -36,4 +36,6 @@ logging.basicConfig(
 )
 
 # Importação das rotas Rota 
-from key_manager.routes import *
+from key_manager.routes import (
+    index, admin, views
+)
