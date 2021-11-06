@@ -4,9 +4,6 @@
     e importa as rotas usadas no app
 '''
 from flask import Flask
-from waitress import serve
-from flask import jsonify, make_response, render_template
-from flask import request, url_for, redirect, flash, session
 from flask_bootstrap import Bootstrap
 from flask_wtf.csrf import CSRFProtect
 import logging
@@ -22,7 +19,7 @@ CSV_DIR = '/flask/'
 
 # Conexão com db sqlite
 try:
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/KMApp.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + CSV_DIR + 'key_manager/db/KMApp.sqlite3'
     from key_manager.models import db
     db.init_app(app)
 except:
