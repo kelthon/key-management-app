@@ -2,7 +2,11 @@
     Rota dos admnistradores
 '''
 from key_manager import app
-from flask import Blueprint
+from flask import (
+    Blueprint, render_template,
+    request, url_for, redirect, 
+    flash, session
+)
 
 admin = Blueprint("admin", __name__, url_prefix="/admin")
 

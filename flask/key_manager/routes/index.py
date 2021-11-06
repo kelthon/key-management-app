@@ -3,6 +3,11 @@
 '''
 from key_manager import app
 from key_manager.models import db
+from flask import (
+    render_template,
+    request, url_for, redirect, 
+    flash, session
+)
 
 @app.before_first_request
 def initialize():
