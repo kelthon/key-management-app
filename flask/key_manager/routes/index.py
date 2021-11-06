@@ -14,4 +14,8 @@ def initialize():
 @app.route('/')
 def index():
     return "Seja Bem-vindo!"
+
+@app.route('/<notfound>')
+def notFound(notfound):
+    return "Não encontrado!"
     
