@@ -39,7 +39,7 @@ def viewUser(username):
 def viewReg(reg_id):
     try:
         all_registries = db.query.filter_by(reg_id).all()
-        return render_template("registry.html", keys=all_registries)
+        return render_template("registries.html", keys=all_registries)
     except:
         return "Nao encontrado"
 
