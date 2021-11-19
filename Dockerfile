@@ -14,5 +14,6 @@ RUN pip install Flask-Reuploaded
 RUN apt-get update
 RUN pip install pyTelegramBotAPI
 RUN pip install semantic_version
+RUN pip install Flask-Session
 EXPOSE 80
 CMD python /flask/server.py
