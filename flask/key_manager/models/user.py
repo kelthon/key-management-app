@@ -5,9 +5,9 @@
     email, telefone, senha, data de criação e permissões. 
 '''
 from datetime import datetime
-from models import *
+from key_manager.models import *
 
-class User(db.model):
+class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=False, nullable=False)

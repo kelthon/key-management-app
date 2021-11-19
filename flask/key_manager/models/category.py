@@ -8,9 +8,9 @@
     identificação da categoria, e sua data de criação.
 '''
 from datetime import datetime
-from models import *
+from key_manager.models import *
 
-class Category(db.model):
+class Category(db.Model):
     __tablename__ = 'categorys'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=False, nullable=False)
