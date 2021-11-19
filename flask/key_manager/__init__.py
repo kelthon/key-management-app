@@ -6,13 +6,18 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_wtf.csrf import CSRFProtect
+from flask_session import Session
+from flask import session
 import logging
 import os
 
 # Configuração do app, criptografia, db, bootstrap e CSRF
 app = Flask(__name__) 
 
+app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = os.urandom(24)
+app.config['WTF_CSRF_SSL_STRICT'] = False
+Session(app)
 bootstrap = Bootstrap(app)
 CSRFProtect(app)
 CSV_DIR = '/flask/'
