@@ -20,6 +20,7 @@ CSV_DIR = '/flask/'
 # Conexão com db sqlite
 try:
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + CSV_DIR + 'key_manager/db/KMApp.sqlite3'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     from key_manager.models import db
     db.init_app(app)
 except:
