@@ -22,45 +22,50 @@ def viewIndex():
 @view.route("/category/<category_slug>")
 def viewCat(category_slug): 
     try:
-        all_categories = Category.query.filter(Category.slug==category_slug).all()
+        cat = Category.query.filter_by(slug=category_slug).first()
+        print(cat)
     except:
-        return render_template("categories.html")
+        return render_template("view/categories.html")
     
-    return render_template("categories.html", categories=all_categories)
+    return render_template("view/categories.html", categories=cat)
 
 @view.route("/key/<key_slug>")
 def viewKey(key_slug):
     try:
-        keyTeste = Key(id=1, name="Teste", slug="teste", key_category_id=1, key_avaliable=True)
+        keyTeste = Key(name="Teste", slug="teste", key_category_id=1, key_avaliable=True)
+        print(keyTeste)
         db.session.add(keyTeste)
         db.session.commit()
     except:
         pass
     try:
-        all_keys = Key.query.filter_by(Key.slug==key_slug).all()
+        all_keys = Key.query.filter_by(slug=key_slug).all()
     except:
-        return render_template("keys.html")
+        return render_template("view/keys.html")
     
-    return render_template("keys.html", keys=all_keys)
+    return render_template("view/keys.html", keys=all_keys)
 
 @view.route("/user/<username>")
 def viewUser(username):
     try:
-        userTeste = Key(id=1, name="Admin", username="Admin01", email="admin@admin.com", phone="+99 (99) 9 9999-9999", passwordd="12345", usertype="admin")
+        userTeste = Key(name="Admin", username="Admin01", email="admin@admin.com", phone="+99 (99) 9 9999-9999", passwordd="12345", usertype="admin")
         db.session.add(userTeste)
         db.session.commit()
-        all_users = User.query.filter_by(User.username==username).all()
-        return render_template("users.html", keys=all_users)
+        all_users = User.query.filter_by(username=username).all()
+        return render_template("view/users.html", keys=all_users)
     except:
-        return render_template("users.html")
+        return render_template("view/users.html")
 
-@view.route("/registry/<user_id>")
+@view.route("/registry/<reg_id>")
 def viewReg(reg_id):
     try:
-        all_registries = Registry.query.filter_by(Registry.id==reg_id).all()
-        return render_template("registries.html", keys=all_registries)
+        regTeste = Registry()
+        db.session.add(regTeste)
+        db.session.commit()
+        all_registries = Registry.query.filter_by(id=reg_id).all()
+        return render_template("view/registries.html", keys=all_registries)
     except:
-        return render_template("registries.html")
+        return render_template("view/registries.html")
 
 @view.route("/<name>")
 @view.route("/category")
