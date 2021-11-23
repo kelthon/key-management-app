@@ -8,10 +8,10 @@
     identificação da categoria, e sua data de criação.
 '''
 from datetime import datetime
-from models import *
+from key_manager.models import *
 
-class Category(db.model):
-    __tablename__ = 'categorys'
+class Category(db.Model):
+    __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=False, nullable=False)
     slug = db.Column(db.String(100), unique=True, nullable=False)

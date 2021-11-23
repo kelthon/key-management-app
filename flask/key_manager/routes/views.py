@@ -1,8 +1,12 @@
 '''
-    Rota de Consulta
+    Rota de Consultas
 '''
 from key_manager import app
 from key_manager import db
+from key_manager.models.category import Category
+from key_manager.models.key import Key
+from key_manager.models.user import User
+from key_manager.models.registry import Registry
 from flask import (
     Blueprint, render_template,
     request, url_for, redirect, 
@@ -12,40 +16,59 @@ from flask import (
 view = Blueprint("view", __name__, url_prefix="/view")
 
 @view.route("/")
-def index():
-    return "Views"
+def viewIndex():
+    return (
+    "<h1>Views</h1><br><a href='/view/category/categoria-teste-1'>Categorias</a><br><a href='/view/key/chave-teste-1'>Chaves</a><br><a href='/view/user/AdminMaster01'>Users</a><br><a href='/view/registry/1'>RGs</a><br><button><a href='/view/init'>Criação rápida</button></a>"
+    )
 
 @view.route("/category/<category_slug>")
-def aviewReg(category_slug):
+def viewCat(category_slug): 
     try:
-        all_categories = db.query.filter_by(category_slug).all()
-        return render_template("categories.html", categories=all_categories)
+        category = Category.query.filter_by(slug=category_slug).first()
     except:
-        return "Nao encontrado"
+        pass
+    
+    return render_template("view/categories.html", category=category)
 
 @view.route("/key/<key_slug>")
-def viewKey(key_slug):
+def viewKey(key_slug):    
     try:
-        all_keys = db.query.filter_by(key_slug).all()
-        return render_template("keys.html", keys=all_keys)
+        keys = Key.query.filter_by(slug=key_slug).first()
     except:
-        return "Nao encontrado"
+        pass
+    return render_template("view/keys.html", key=keys)
 
-@view.route("/user/<username>")
-def viewUser(username):
+@view.route("/user/<user_username>")
+def viewUser(user_username):
     try:
-        all_users = db.query.filter_by(username).all()
-        return render_template("users.html", keys=all_users)
+        all_users = User.query.filter_by(username=user_username).first()
     except:
-        return "Nao encontrado"
+        pass
+    return render_template("view/users.html", user=all_users)
 
-@view.route("/registry/<user_id>")
+@view.route("/registry/<reg_id>")
 def viewReg(reg_id):
+    all_registries = Registry.query.filter_by(id=reg_id).all()
+    return render_template("view/registries.html", registries=all_registries)
+
+@view.route("/init")
+def init():
+    cat = Category(name="Categoria Teste 1", slug="categoria-teste-1")
+    key = Key(key_category_id=1, name="Chave Teste 1", slug="chave-teste-1")
+    user = User(name="Jão Admin", username="AdminMaster01", email="jão@admin.com", password="12345", phone="+99 (99) 9 9999-9999", usertype="admin")
+    reg = Registry(user_id=1, key_id=1, holder_name="unknow", holder_email="unknow@unknow.com")
+
     try:
-        all_registries = db.query.filter_by(reg_id).all()
-        return render_template("registries.html", keys=all_registries)
+        db.session.add(cat)
+        db.session.add(key)
+        db.session.add(user)
+        db.session.add(reg)
+
+        db.session.commit()
     except:
-        return "Nao encontrado"
+        pass
+
+    return redirect(url_for('view.viewIndex'))
 
 @view.route("/<name>")
 @view.route("/category")
@@ -53,6 +76,6 @@ def viewReg(reg_id):
 @view.route("/user")
 @view.route("/registry")
 def notFound(name):
-    return "not found"
+    return "<h1>Not found</h1><br><a href='/view/'>Click here to back</a>"
 
 app.register_blueprint(view)

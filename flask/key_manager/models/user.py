@@ -5,9 +5,9 @@
     email, telefone, senha, data de criação e permissões. 
 '''
 from datetime import datetime
-from models import *
+from key_manager.models import *
 
-class User(db.model):
+class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=False, nullable=False)
@@ -15,7 +15,7 @@ class User(db.model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     phone = db.Column(db.String(20), unique=False, nullable=True)
     password = db.Column(db.String(100), unique=True, nullable=False)
-    creation_date = db.Column(db.DateTime, default=datetime.utcnow)
+    creation_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     ''' 
         Usertype pode ser Três master possui todas as permissões, 
         E admin possui menos permissões e normal não possui permissões
