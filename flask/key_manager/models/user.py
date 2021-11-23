@@ -15,7 +15,7 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     phone = db.Column(db.String(20), unique=False, nullable=True)
     password = db.Column(db.String(100), unique=True, nullable=False)
-    creation_date = db.Column(db.DateTime, default=datetime.utcnow)
+    creation_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     ''' 
         Usertype pode ser Três master possui todas as permissões, 
         E admin possui menos permissões e normal não possui permissões

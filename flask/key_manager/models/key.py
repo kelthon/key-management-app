@@ -10,8 +10,7 @@ from key_manager.models import *
 class Key(db.Model):
     __tablename__ = 'keys'
     id = db.Column(db.Integer, primary_key=True)
-    key_category_id = db.Column(db.Integer, db.ForeignKey("category.id"))
-    key_category = db.relationship('Category', backref=db.backref('key', lazy=True))
+    key_category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
     key_avaliable = (db.Column(db.Boolean, default=True))
     name = db.Column(db.String(100), unique=False, nullable=False)
     slug = db.Column(db.String(100), unique=True, nullable=False)
