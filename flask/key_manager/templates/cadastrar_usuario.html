@@ -2,32 +2,40 @@
 
 {% block conteudo %}
     {% from 'bootstrap/form.html' import render_form %}
-	<form action="{{ url_for('cadastro') }}" method="POST">
+	<form action="{{ url_for('register') }}" method="POST">
 		<table>
 			<tr>
-			<td>Usuário</td>
-			<td><input type="text" name="user_name"></td>
+			<td>Nome Completo</td>
+			<td><input type="text" name="name"></td>
 			</tr>
 			<tr>
-			<td>Nome</td>
-			<td><input type="text" name="name"></td>
+			<td>Nome do Usuário</td>
+			<td><input type="text" name="username"></td>
 			</tr>
 			<tr>
 			<td>Email</td>
 			<td><input type="text" name="email"></td>
 			</tr>
-			<td>ID da chave</td>
-			<td><input type="text" name="key_id"></td>
+			<td>Telefone</td>
+			<td><input type="text" name="phone"></td>
 			</tr>
 			<tr>
-			<td>Data de Empréstimo</td>
-			<td><input type="text" name="loan_date"></td>
+			<td>Senha</td>
+			<td><input type="text" name="password"></td>
 			</tr>
 			<tr>
-			<td>Data de devolução</td>
-			<td><input type="text" name="return_date"></td>
+			<td>Data de cadastro</td>
+			<td><input type="date" name="date"></td>
 			</tr>
-			<tr>						
+			<tr>
+			<td>Nivél de Acesso</td>
+			<td><select name="level">
+				<option value="admin">Administrador</option>
+				<option value="editor">Editor</option>
+				<option value="user">Usuário</option>
+			</select></td>
+			</tr>
+									
 		</table>
 		<br>
 		<input type="submit" value="Cadastrar">
