@@ -2,35 +2,6 @@
 
 {% block conteudo %}
     {% from 'bootstrap/form.html' import render_form %}
-	<form action="{{ url_for('cadastro') }}" method="POST">
-		<table>
-			<tr>
-			<td>Usuário</td>
-			<td><input type="text" name="user_name"></td>
-			</tr>
-			<tr>
-			<td>Nome</td>
-			<td><input type="text" name="name"></td>
-			</tr>
-			<tr>
-			<td>Email</td>
-			<td><input type="text" name="email"></td>
-			</tr>
-			<td>ID da chave</td>
-			<td><input type="text" name="key_id"></td>
-			</tr>
-			<tr>
-			<td>Data de Empréstimo</td>
-			<td><input type="text" name="loan_date"></td>
-			</tr>
-			<tr>
-			<td>Data de devolução</td>
-			<td><input type="text" name="return_date"></td>
-			</tr>
-			<tr>						
-		</table>
-		<br>
-		<input type="submit" value="Cadastrar">
-		</form>
+	
     {{ render_form(form,action=action,method="post") }}
 {% endblock %}
