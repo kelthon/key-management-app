@@ -3,11 +3,10 @@
     Configura a aplicação,
     e importa as rotas usadas no app
 '''
-from flask import Flask
+from flask import Flask, session
+from flask_session.__init__ import Session
 from flask_bootstrap import Bootstrap
 from flask_wtf.csrf import CSRFProtect
-from flask_session import Session
-from flask import session
 import logging
 import os
 

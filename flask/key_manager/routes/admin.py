@@ -3,6 +3,10 @@
 '''
 from key_manager import app
 from key_manager.models import db
+from key_manager.models.category import Category
+from key_manager.models.key import Key
+from key_manager.models.user import User
+from key_manager.models.registry import Registry
 from flask import (
     Blueprint, render_template,
     request, url_for, redirect, 
@@ -18,7 +22,7 @@ def admHome():
 def newKey():
     return "new key"
 
-@admin.route('/cadastrar_usuario', methods['GET', 'POST'])
+@admin.route('/cadastrar_usuario', methods=['GET', 'POST'])
 def register():
     if request.method == "POST":
         name = request.form.get("name")
@@ -35,7 +39,7 @@ def register():
             
     return redirect(url_for("/"))
     
-@admin.route('/cadastrar_emprestimo', methods['GET', 'POST'])
+@admin.route('/cadastrar_emprestimo', methods=['GET', 'POST'])
 def lend():
     if request.method == "POST":
         user_id = request.form.get("user_name")
