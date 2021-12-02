@@ -1,12 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms import StringField, PasswordField, EmailField, SubmitField
+from wtforms.validators import DataRequired, Length
 
-class formUser(FlaskForm):
-    name = StringField("name", validators=[DataRequired()])
-    username = PasswordField("username", validators=[DataRequired()])
-    email = StringField("email", validators=[DataRequired()])
-    phone = PasswordField("phone", validators=[DataRequired()])
-    password = StringField("password", validators=[DataRequired()])
-    usertype = PasswordField("level", validators=[DataRequired()])
-    send = SubmitField("Entrar")
+class FormUser(FlaskForm):
+    name = StringField("name", validators=[DataRequired(), Length(min=4, max=100)])
+    username = StringField("username", validators=[DataRequired(), Length(min=4, max=25)])
+    email = EmailField("email", validators=[DataRequired(), Length(min=10, max=100)])
+    phone = StringField("phone",  validators=[Length(min=9, max=20)])
+    password = PasswordField("password", validators=[DataRequired(), Length(min=5, max=100)])
+    send = SubmitField("Cadastrar")
+    

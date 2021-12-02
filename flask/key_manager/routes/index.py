@@ -10,7 +10,6 @@ from key_manager.models.category import Category
 from key_manager.models.key import Key
 from key_manager.models.user import User
 from key_manager.models.registry import Registry
-from key_manager.forms.formUser import formUser
 from flask import (
     render_template,
     request, url_for, redirect, 
@@ -35,25 +34,3 @@ def login():
 @app.route('/<notfound>')
 def notFound(notfound):
     return (render_template('notfound.html'))
-
-@app.route('/cadastrar/user')
-def redirect_register():
-    userform = formUser()
-    return render_template("cadastrar_usuario.html", form=userform, action=url_for('cadastrar'))
-
-@app.route('/formulario', methods=['GET', 'POST'])
-def cadastrar():
-    if request.method == "POST":
-        user_id = request.form.get("user_name")
-        loan_date = request.form.get("loan_date")
-        return_date = request.form.get("return_date")
-        key_id = request.form.get("key_id")
-        name = request.form.get("name")
-        email = request.form.get("email")
-        
-        if user_id and loan_date and return_date and key_id and name and name and email:
-            r = Registry(user_id, loan_date, return_date, key_id, name, email)
-            db.session.add(r)
-            db.session.commit()
-    
-    return redirect(url_for("index"))
