@@ -41,7 +41,7 @@ def newUser():
         db.session.add(newuser)
         db.session.commit()
         return redirect(url_for("index"))
-    return render_template("forms/cadastro_usuario.html", form=userform, action=url_for('cadastro.newUser'))
+    return render_template("forms/cadastrar_usuario.html", form=userform, action=url_for('cadastro.newUser'))
 
 @cadastro.route('/registry', methods=['GET', 'POST'])
 def newRegistry():

@@ -39,5 +39,5 @@ logging.basicConfig(
 
 # Importação das rotas Rota 
 from key_manager.routes import (
-    index, admin, views
+    index, admin, views, cadastro
 )
