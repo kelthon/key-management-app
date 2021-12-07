@@ -17,7 +17,7 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config['WTF_CSRF_SSL_STRICT'] = False
 Session(app)
-bootstrap = Bootstrap(app)
+Bootstrap(app)
 CSRFProtect(app)
 CSV_DIR = '/flask/'
 
