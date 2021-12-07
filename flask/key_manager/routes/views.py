@@ -17,9 +17,10 @@ view = Blueprint("view", __name__, url_prefix="/view")
 
 @view.route("/")
 def viewIndex():
-    return (
-    "<h1>Views</h1><br><a href='/view/category/categoria-teste-1'>Categorias</a><br><a href='/view/key/chave-teste-1'>Chaves</a><br><a href='/view/user/AdminMaster01'>Users</a><br><a href='/view/registry/1'>RGs</a><br><button><a href='/view/init'>Criação rápida</button></a>"
-    )
+    keys = Key.query.limit(10)
+    cats = Category.query.limit(10)
+    regs = Registry.query.limit(10)
+    return render_template("view/indexView.html", keys=keys, categories=cats, registries=regs)
 
 @view.route("/category/<category_slug>")
 def viewCat(category_slug): 
@@ -50,32 +51,5 @@ def viewUser(user_username):
 def viewReg(reg_id):
     all_registries = Registry.query.filter_by(id=reg_id).all()
     return render_template("view/registries.html", registries=all_registries)
-
-@view.route("/init")
-def init():
-    cat = Category(name="Categoria Teste 1", slug="categoria-teste-1")
-    key = Key(key_category_id=1, name="Chave Teste 1", slug="chave-teste-1")
-    user = User(name="Jão Admin", username="AdminMaster01", email="jão@admin.com", password="12345", phone="+99 (99) 9 9999-9999", usertype="admin")
-    reg = Registry(user_id=1, key_id=1, holder_name="unknow", holder_email="unknow@unknow.com")
-
-    try:
-        db.session.add(cat)
-        db.session.add(key)
-        db.session.add(user)
-        db.session.add(reg)
-
-        db.session.commit()
-    except:
-        pass
-
-    return redirect(url_for('view.viewIndex'))
-
-@view.route("/<name>")
-@view.route("/category")
-@view.route("/key")
-@view.route("/user")
-@view.route("/registry")
-def notFound(name):
-    return "<h1>Not found</h1><br><a href='/view/'>Click here to back</a>"
 
 app.register_blueprint(view)

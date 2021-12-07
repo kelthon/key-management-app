@@ -24,10 +24,10 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="{{ url_for('login') }}">Entrar</a></li>
-                <li><a class="dropdown-item" href="#">Cadastrar-se</a></li>
-                <li><a class="dropdown-item" href="#">Conta</a></li>
-                <li><a class="dropdown-item" href="#">Configurações</a></li>
-                <li><a class="dropdown-item" href="#">Sair</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('cadastro.newUser')}}">Cadastrar-se</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('index') }}">Conta</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('index') }}">Configurações</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('index') }}">Sair</a></li>
           </ul>
         </li>
       </ul>

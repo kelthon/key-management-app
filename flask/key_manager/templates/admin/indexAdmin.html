@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Painel Administrativo</h1>
+    <ul class="list-group">
+        <li class="list-group-item"><a class="text-decoration-none" href="{{url_for('view.viewIndex')}}">CHAVES DISPONÍVEIS</a></li>
+        <li class="list-group-item"><a class="text-decoration-none" href="{{url_for('cadastro.newCategory')}}">CRIAR NOVA CATEGORIA</a></li>
+        <li class="list-group-item"><a class="text-decoration-none" href="{{url_for('view.viewIndex')}}">CONSULTAR CATEGORIAS</a></li>
+        <li class="list-group-item"><a class="text-decoration-none" href="{{url_for('cadastro.newKey')}}">CRIAR NOVA CHAVE</a></li>
+            <li class="list-group-item"><a class="text-decoration-none" href="{{url_for('view.viewIndex')}}">CONSULTAR CHAVES</a></li>
+        <li class="list-group-item"><a class="text-decoration-none" href="{{url_for('cadastro.newRegistry')}}">CRIAR NOVO REGISTRO</a></li>
+        <li class="list-group-item"><a class="text-decoration-none" href="{{url_for('view.viewIndex')}}">CONSULTAR REGISTROS</a></li>
+        <li class="list-group-item"><a class="text-decoration-none" href="{{url_for('view.viewIndex')}}">GERENCIAR PERMISSÕES DOS USUÁRIOS</a></li>
+    </ul>
+</div>
+{% endblock %}

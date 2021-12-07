@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <h1 class="col">Chaves</h1>
+        <a class="col" href="#"><small>Ver todas</small></a>
+    </div>
+    <div class="card-group">
+        {% for key in keys %}
+        <div class="card">
+            <div class="card-body">
+                <h3>{{key.name}}</h3>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <h1 class="col">Registros</h1>
+        <a class="col" href="#"><small>Ver todos</small></a>
+    </div>
+    <div class="card-group">
+        <div class="row">
+            <div class="row">
+                {% for registry in registries %}
+                <div class="card col-auto">
+                    <div class="card-body">
+                        <h3>{{registry.id}}</h3>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <h1 class="col">Categorias</h1>
+        <a class="col" href="#"><small>Ver todas</small></a>
+    </div>
+    <div class="card-group">
+        <div class="row">
+            {% for category in categories %}
+            <div class="card">
+                <div class="card-body">
+                    <h6>{{category.name}}</h6>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

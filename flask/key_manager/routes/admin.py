@@ -17,6 +17,6 @@ admin = Blueprint("admin", __name__, url_prefix="/admin")
 
 @admin.route("/")
 def admHome():
-    return (u"Administração")
+    return render_template("admin/indexAdmin.html")
 
 app.register_blueprint(admin)
