@@ -27,17 +27,17 @@ def newKey():
 def newUser():
     userform = FormUser()
     
-    name = request.form.get("name")
-    username = request.form.get("username")
-    email = request.form.get("email")
-    phone = request.form.get("phone")
-    password = request.form.get("password")
+    if request.method == "POST":
+        name = request.form["name"]
+        username = request.form["username"]
+        email = request.form["email"]
+        phone = request.form["phone"]
+        password = request.form["password"]
 
-    if phone == "" or phone == None:
-        phone = " "
+        hash_passsword = hashlib.md5(password.encode("utf8")).hexdigest()
 
     if userform.validate_on_submit():
-        newuser = User(name=name, username=username, email=email, phone=phone, password=password)
+        newuser = User(name=name, username=username, email=email, phone=phone, password=hash_passsword)
         db.session.add(newuser)
         db.session.commit()
         return redirect(url_for("index"))
@@ -49,7 +49,7 @@ def newRegistry():
     if request.method == "POST":
         user_id = request.form.get("user_name")
         loan_date = request.form.get("loan_date")
-        return_date = request.form.get("return_date")
+        return_date = request.form.get("return_date") 
         key_id = request.form.get("key_id")
         name = request.form.get("name")
         email = request.form.get("email")

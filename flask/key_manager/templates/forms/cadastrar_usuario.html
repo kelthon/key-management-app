@@ -4,9 +4,9 @@
 	<div class="row justify-content-center mt-2">
 		<div class="col-10">
 			<form class="form-control" action="{{ action }}" method="post">
+				{{ form.csrf_token }}
 				<h1 class="text-center">Cadastrar novo usuário</h1>
 				<p class="mb-0 text-center mb-4"><small class="text-muted col-auto ">Campos com <span class="text-danger">*</span> são campos obrigátorios</small></p>
-				{{ form.csrf_token }}
 
 				<label class="form-label col-auto">Username<span class="text-danger">*</span></label>
 				{{ form.username(size=20, class="form-control col") }} 
