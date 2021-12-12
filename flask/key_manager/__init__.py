@@ -3,7 +3,7 @@
     Configura a aplicação,
     e importa as rotas usadas no app
 '''
-from flask import Flask, session
+from flask import Flask, session, flash
 from flask_session.__init__ import Session
 from flask_bootstrap import Bootstrap
 from flask_wtf.csrf import CSRFProtect
@@ -29,7 +29,7 @@ try:
     from key_manager.models import db
     db.init_app(app)
 except:
-    print("Erro ao conectar-se ao sqlite")
+    flash("Erro ao conectar-se ao database", "error_msg")
 
 # Configuração do logging
 logging.basicConfig(
@@ -40,5 +40,5 @@ logging.basicConfig(
 
 # Importação das rotas Rota 
 from key_manager.routes import (
-    index, admin, views, cadastro
+    index, admin, views, cadastro, deletar, editar
 )

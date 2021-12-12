@@ -12,22 +12,27 @@
         <li class="nav-item">
           <a class="nav-link active" href="{{ url_for('view.viewIndex') }}">Chaves Disponíveis</a>
         </li>
+        {% if session.get('user_permission') == 'admin' or session.get('user_permission') == 'master'%}
         <li class="nav-item">
           <a class="nav-link active" href="{{ url_for('admin.admHome') }}">Administração</a>
         </li>
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link deactive" href="#">Procurar Chaves</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" href="{{ url_for('login') }}" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Entrar/Cadastrar-se
+            {% if session.get('user_auth') %}{{ session.get('user_username') }}{% else %}Entrar/Cadastrar-se{% endif %}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            {% if session.get('user_auth') == True %}
+            <li><a class="dropdown-item" href="{{ url_for('view.viewUser', user_username=session.get('user_username')) }}">Conta</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('index') }}">Configurações</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sair</a></li>
+            {% else %}
             <li><a class="dropdown-item" href="{{ url_for('login') }}">Entrar</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('cadastro.newUser')}}">Cadastrar-se</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('index') }}">Conta</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('index') }}">Configurações</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('index') }}">Sair</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('cadastro.newUser')}}">Cadastrar-se</a></li>
+            {% endif %}
           </ul>
         </li>
       </ul>

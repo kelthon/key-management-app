@@ -1,5 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-    
+<div class="container">
+    <form action="{{action}}" class="form-control mt-5 mb-5" method="post">
+        {{ form.csrf_token }}
+        <h1 class="text-center mt-2 mb-2">Cadastrar nova Categoria</h1>
+        <p><small>Os campos com <span class="text-danger text-center mt-2 mb-2">*</span> são obrigatórios </small></p>
+        <div class="row mt-2">
+            <label class="form-label col-sm-2">Nome da Categoria<span class="text-danger">*</span></label>
+            <div class="col-sm-4">
+                {{ form.name(class="form-control") }}
+            </div>
+        </div>
+        <div class="row mt-2">
+            <label class="form-label col-sm-2">Slug da Categoria<span class="text-danger">*</span></label>
+            <div class="col-sm-4">
+                {{ form.slug(class="form-control") }}
+            </div>
+        </div>
+        {{ form.submit(class="btn btn-success mt-2") }}
+    </form>
+    <div class="text-muted">
+        <h3>O que são Cateogrias?</h3>
+        <p>
+            Categorias são classificações para dividir as chaves em grupos por exemplo separar as chaves por blocos, tipos, e locais
+            Exemplo: Chave X do <strong>Bloco K</strong>
+            <strong>Bloco K</strong> portanto refere-se a categoria daquela chave.
+        </p>
+        <h3 >Como usá-las</h3>
+        <p>Você pode usar as categorias para procurar as chaves na secção de chaves disponíveis, as ordenando por categorias</p>
+    </div>
+</div>
 {% endblock %}

@@ -2,8 +2,8 @@
 
 {% block content %}
 <form class="form-control" action="{{ action }}" method="post">
-	<h1 class="text-center">Cadastrar novo registro</h1>
 	{{ form.csrf_token }}
+	<h1 class="text-center">Cadastrar novo registro</h1>
 
 	<label class="form-label">Usuário autenticador do registro</label>
     {{ form.user_id(class="form-control") }}

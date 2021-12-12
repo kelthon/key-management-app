@@ -9,4 +9,8 @@ class FormUser(FlaskForm):
     phone = StringField("phone",  validators=[Length(min=9, max=20)])
     password = PasswordField("password", validators=[DataRequired(), Length(min=5, max=100)])
     send = SubmitField("Cadastrar")
-    
+
+class DelFormUser(FlaskForm):
+    account = StringField("Conta", validators=[DataRequired()])
+    password = PasswordField("Senha", validators=[DataRequired()])
+    send = SubmitField("Confirmar")

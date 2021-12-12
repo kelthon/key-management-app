@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <form class="form-control mt-5 mb-5" action="{{ action }}" method="post">
+        <h1 class="text-center">Cadastrar nova Chave</h1>
+        <div class="row mt-3 mb-3">
+            <label class="form-label col-sm-1">Nome<span class="text-danger">*</span></label>
+            <div class="col-sm-5">
+                {{ form.name(class="form-control col") }}
+            </div>
+        </div>
+        <div class="row mt-3 mb-3">
+            <label class="form-label col-sm-1">Slug<span class="text-danger">*</span></label>
+            <div class="col-sm-5">
+                {{ form.slug(class="form-control col") }}
+            </div>
+        </div>
+        <div class="row mt-3 mb-3">
+            <label class="form-label col-sm-1">Categoria<span class="text-danger">*</span></label>
+            <div class="col-sm-5">
+                {{ form.key_category_id(class="form-control col") }}
+            </div>
+        </div>
+        {{ form.csrf_token }}
+        {{ form.send(class="btn btn-success mt-3 mb-3") }}
+    </form>
+</div>
+{% endblock %}

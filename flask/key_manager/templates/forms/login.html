@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <a href="{{url_for('index')}}" class="btn btn-primary mb-4 row">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-return-left col-auto" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
+        </svg><span class="col-auto">Voltar para o início</span>
+    </a>
+    <form action="{{ action }}" class="form-control" method="post">
+        
+        {{ form.csrf_token }}
+        <div class=""><h1>Entrar</h1></div>
+        <div class="row mt-2">
+                <label class="form-label col-sm-1">Conta<span class="text-danger">*</span></label>
+                <div class="col-sm-auto">
+                    {{ form.account(class="form-control", placeholder="Email ou Username") }}
+                </div>
+            </div>
+            <div class="row mt-2">
+                <label class="form-label col-sm-1">Senha<span class="text-danger">*</span></label>
+                <div class="col-sm-auto">
+                    {{ form.password(class="form-control", placeholder="Senha") }}
+                </div>
+            </div>
+            <!-- <div class="mt-2 mb-2">
+                {#{ form.remenberMe(class="form-check-input") }#}
+                <label for="remenberMe" class="form-check-label">Lembrar deste usuário</label>
+            </div> -->
+            {{ form.send(class="btn btn-primary mb-3") }}
+            <div class="mb-3">
+                <small class="text-muted"> Não possui conta clique em
+                    <a href="{{url_for('cadastro.newUser')}}" class="link-info">Cadastrar-se</a>
+                    para criar uma conta agora mesmo!
+                </small>
+            </div>
+        
+    </form>
+</div>
+{% endblock %}
