@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <form action="{{action}}" method="post" class="form-control mt-2 mb-2">
+        {{ form.csrf_token }}
+        <p><small>Os campos com <span class="text-danger text-center mt-2 mb-2">*</span> são obrigatórios </small></p>
+        <div class="row mt-2">
+            <label class="form-label col-sm-2">Nome da Categoria<span class="text-danger">*</span></label>
+            <div class="col-sm-4">
+                {{ form.name(class="form-control", value=category.name) }}
+            </div>
+        </div>
+        <div class="row mt-2">
+            <label class="form-label col-sm-2">Slug da Categoria<span class="text-danger">*</span></label>
+            <div class="col-sm-4">
+                {{ form.slug(class="form-control", value=category.slug) }}
+            </div>
+        </div>
+        {{ form.submit(class="btn btn-success mt-2") }}
+    </form>
+</div>
+{% endblock %}

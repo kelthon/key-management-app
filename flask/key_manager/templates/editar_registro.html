@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<form class="form-control" action="{{ action }}" method="post">
+	{{ form.csrf_token }}
+
+	<label class="form-label">Usuário autenticador do registro</label>
+    {{ form.user_id(class="form-control", value=registry.user_id) }}
+
+	<label class="form-label">ID da chave pega</label>
+    {{ form.key_id(class="form-control", value=registry.key_id) }}
+
+	<label class="form-label">Nome de quem fez o empréstimo</label>
+    {{ form.holder_name(class="form-control", value=registry.holder_name) }}
+
+	<label class="form-label">Email de quem fez o empréstimo</label>
+	{{ form.holder_email(class="form-control", value=registry.holder_email) }}
+
+    {{ form.send }}
+{% endblock %}

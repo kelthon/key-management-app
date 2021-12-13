@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <form action="{{action}}" method="post" class="form-control mt-2 mb-2">
+        {{ form.csrf_token }}
+        <div class="row mt-3 mb-3">
+            <label class="form-label col-sm-1">Nome<span class="text-danger">*</span></label>
+            <div class="col-sm-5">
+                {{ form.name(class="form-control col", value=key.name) }}
+            </div>
+            {% if form.name.errors %}
+            {% for error in form.name.errors %}
+            <div class="alert alert-danger">{{ error }}</div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="row mt-3 mb-3">
+            <label class="form-label col-sm-1">Slug<span class="text-danger">*</span></label>
+            <div class="col-sm-5">
+                {{ form.slug(class="form-control col", value=key.slug) }}
+            </div>
+            {% if form.slug.errors %}
+            {% for error in form.slug.errors %}
+            <div class="alert alert-danger">{{ error }}</div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="row mt-3 mb-3">
+            <label class="form-label col-sm-1">Categoria<span class="text-danger">*</span></label>
+            <div class="col-sm-5">
+                {{ form.key_category_id(class="form-control col", value=key.key_category_id) }}
+            </div>
+        </div>
+        <div class="row mt-3 mb-3">
+            <label class="form-label col-sm-auto">Disponibilidade<span class="text-danger">*</span></label>
+            <div class="col-sm-5">
+                {{ form.key_avaliable(value=key.key_avaliable) }}
+            </div>
+        </div>
+        {{ form.send(class="btn btn-success mt-3 mb-3") }}
+    </form>
+</div>
+{% endblock %}

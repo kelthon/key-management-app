@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+	<div class="row justify-content-center mt-2">
+		<div class="col-10">
+			<form class="form-control" action="{{ action }}" method="post">
+				{{ form.csrf_token }}
+				<p class="mb-0 text-center mb-4"><small class="text-muted col-auto ">Campos com <span class="text-danger">*</span> são campos obrigátorios</small></p>
+                
+                <label for="recipient-name" class="col-form-label">Username<span class="text-danger">*</span></label>
+                {{ form.username(class="form-control") }}
+				
+				<label class="form-label col-auto">Senha atual<span class="text-danger">*</span></label>
+				{{ form.password(class="form-control col") }}
+						
+				<label class="form-label col-auto">Nova senha<span class="text-danger">*</span></label>
+				{{ form.newpassword(size=20, class="form-control col") }}	
+				
+				<label class="form-label col-auto">Confirmar nova senha<span class="text-danger">*</span></label>
+				{{ form.confirm_password(size=20, class="form-control col") }}	
+                
+                {{ form.send(class='btn btn-success g-col-auto') }}
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text-javascript">
+	(function () {
+		'use strict'
+	  
+		// Fetch all the forms we want to apply custom Bootstrap validation styles to
+		var forms = document.querySelectorAll('.needs-validation')
+	  
+		// Loop over them and prevent submission
+		Array.prototype.slice.call(forms)
+		  .forEach(function (form) {
+			form.addEventListener('submit', function (event) {
+			  if (!form.checkValidity()) {
+				event.preventDefault()
+				event.stopPropagation()
+			  }
+	  
+			  form.classList.add('was-validated')
+			}, false)
+		  })
+	  })()
+</script>
+
+{% endblock %}
