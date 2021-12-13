@@ -4,7 +4,7 @@ Equipe:
 - [Allan Pereira Fenelon](https://github.com/muranoban)
 - [Francisco Junior Peixoto Dantas](https://github.com/danttis)
 - [Kelthon Balbino Alves](https://github.com/Kelthon)
-- Isac Peixoto Costa
+- [Isac Peixoto Costa](https://github.com/isacpxc)
 
 # Comandos Docker:
 
