@@ -16,100 +16,26 @@
             </div>
         </div>
         
-    <div class="mt-2">
-        <h1>Notícias</h1>
-        <div class="card-group">
-            <div class="row">
-                <div class="card">
-                    <div class="card-body">
-                        <h3>Mega Atualização 11/12/2021</h3>
-                        <p>
-                            <ul>
-                                <li>Criação das mesagens e suas categorias, (warning, info, success, error), com flash</li>
-                                <li>Criação do template 'partials/msg.html', para mesagens para exibição das mensagens flash</li>
-                                <li>Implementação das mesagens flash na rota de cadastro de usuario e login</li>
-                                <li>Implementação da funcionalidade de login</li>
-                                <li>Implementação da funcionalidade de logout</li>
-                                <li>Implementação da funcionalidade de block de tentativas de login</li>
-                                <li>Implementação das session para guardar dados dos usuários</li>
-                                <li>Implementação das sessions para guardar dados dos usuários</li>
-                                <li>Implementação das rotas de exclusão</li>
-                                <li>Criação do form de confirmação de exclusão dos usuarios</li>
-                                <li>Criação da base das rotas de edição</li>
-                                <li>Atualização das senhas sem hash</li>
-                                <li>Atualização da 'partial/navbar.html'</li>
-                            </ul>
-                            <small class="text-muted">11/12/2021 21:22</small>
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h3>Mega Atualização 08/12/2021</h3>
-                        <p>
-                            <ul>
-                                <li>Correções no cadastro dos usuários </li>
-                                <li>Correções no cadastro dos empréstimos</li>
-                                <li>Implementação do modo hidden_footer</li>
-                                <li>Atualização e correções nos forms</li>
-                                <li>Correção na exibição da página de login</li>
-                                <li>Correções na rota de cadastro</li>
-                                <li>Implementação da rota de cadastro de chaves</li>
-                                <li>Implementação da rota de cadastro de categorias</li>
-                                <li>Correção do model das chaves</li>
-                                <li>Criação de dois novos form: chaves e categorias</li>
-                            </ul>
-                            <small class="text-muted">08/12/2021 15:18</small>
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h3>Atualização 07/12/2021</h3>
-                        <p>
-                            <ul>
-                                <li>Correções na validação do form de cadastro de usuarios </li>
-                                <li>Criação do template da página da administração</li>
-                                <li>Criação do template da página da views</li>
-                                <li>Correção dos links da navbar</li>
-
-                            </ul>
-                            <small class="text-muted">07/12/2021</small>
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h3>Atualização 02/12/2021</h3>
-                        <p>
-                            <ul>
-                                <li>Atualização visual do Index</li>
-                                <li>Adição de seção de atualizações é noticias no Index</li>
-                                <li>Correção de bug na posição Footer</li>
-                            </ul>
-                            <small class="text-muted">02/12/2021 11:40</small>
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h3>Atualização 02/12/2021</h3>
-                        <p>
-                            <ul>
-                                <li>Modularização das rotas relacionadas ao cadastro</li>
-                                <li>Criação de uma pasta com os templates dos formularios</li>
-                                <li>Correção de bug naredenrização dos formularios</li>
-                                <li>Criação de uma pasta com os templates dos formularios</li>
-                                <li>Criação do formReg</li>
-                            </ul>
-                            <small class="text-muted">02/12/2021 17:17</small>
-                        </p>
-                    </div>
+        <div class="accordion accordion-flush" id="accordionFlush">
+            <h1>Notícias</h1>
+            {% for noticia in news %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-heading{{noticia.id}}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{noticia.id}}" aria-expanded="false" aria-controls="flush-collapse{{noticia.id}}">
+                        {{noticia.title}}
+                    </button>
+                </h2>
+                <div id="flush-collapse{{noticia.id}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{noticia.id}}" data-bs-parent="#accordionFlush">
+                    <div class="accordion-body">{{noticia.content}}<br>{{noticia.date}}</div>
                 </div>
             </div>
+            {% else %}
+                <div class="card">
+                    <div class="card-body text-muted">
+                        <h3>Notícias ainda não foram cadastradas ainda</h3>
+                        <small><a href="{{ url_for('cadastro.newNews') }}">Cadastre</a> uma notícia para que ela apareça aqui</small>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    </div>
-    </div>
-
-   
 {% endblock %}
