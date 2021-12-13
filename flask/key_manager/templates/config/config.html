@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row mb-2 mt-2">
+    <h1>Configurações</h1>
+    <div class="list-group col-sm-auto">
+        <a class="list-group-item list-group-item-action disabled" href="#" >Preferências</a>
+        <a class="list-group-item list-group-item-action" href="{{url_for('edit.editUser', user_username=session[user_username])}}">Editar Perfil</a>
+        <a class="list-group-item list-group-item-action" href="{{url_for('edit.editPassword', user_username=session[user_username])}}">Editar Senha</a>
+        <a class="list-group-item list-group-item-action" href="{{url_for('delete.delUser', user_username=session[user_username])}}">Excluir conta</a>
+    </div>
+    <div class="col-sm-auto"></div>
+</div>
+{% endblock %}
