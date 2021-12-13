@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <form action="{{action}}" class="form-control mt-5 mb-5" method="post">
+        {{ form.csrf_token }}
+        <h1 class="text-center mt-2 mb-2">Cadastrar nova Notícia</h1>
+        <p><small>Os campos com <span class="text-danger text-center mt-2 mb-2">*</span> são obrigatórios </small></p>
+        <div class="row mt-2">
+            <label class="form-label col-sm-2">Título da Notícia<span class="text-danger">*</span></label>
+            <div class="col-sm-4">
+                {% if news %}
+                {{ form.title(class="form-control", value=news.title) }}
+                {% else %}
+                {{ form.title(class="form-control") }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mt-2">
+            <label class="form-label col-sm-2">Conteúdo<span class="text-danger">*</span></label>
+            <div class="col-sm-4">
+                {% if news %}
+                    {{ form.content(class="form-control", value=news.content, style="height: 300px") }}
+                {% else %}
+                    {{ form.content(class="form-control", style="height: 300px") }}
+                {% endif %}
+            </div>
+        </div>
+        {{ form.send(class="btn btn-success mt-2") }}
+    </form>
+    {% endblock %}
