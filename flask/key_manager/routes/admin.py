@@ -17,6 +17,10 @@ admin = Blueprint("admin", __name__, url_prefix="/admin")
 
 @admin.route("/")
 def admHome():
-    return render_template("admin/indexAdmin.html")
+    return render_template("admin/indexAdmin.html", hidden_footer=True, title="Painel Administrativo")
+
+@admin.route("/manager")
+def manager_user_permissions():
+    return redirect(url_for('index'))
 
 app.register_blueprint(admin)
