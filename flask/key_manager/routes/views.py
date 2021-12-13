@@ -20,7 +20,7 @@ def viewIndex():
     keys = Key.query.limit(10)
     cats = Category.query.limit(10)
     regs = Registry.query.limit(10)
-    return render_template("view/indexView.html", keys=keys, categories=cats, registries=regs)
+    return render_template("view/indexView.html", keys=keys, categories=cats, registries=regs, hidden_footer=True, title="Vizualização" )
 
 @view.route("/category/<category_slug>")
 def viewCat(category_slug): 
@@ -29,7 +29,7 @@ def viewCat(category_slug):
     except:
         pass
     
-    return render_template("view/categories.html", category=category)
+    return render_template("view/categories.html", category=category, hidden_footer=True, title="Categorias")
 
 @view.route("/key/<key_slug>")
 def viewKey(key_slug):    
@@ -37,7 +37,7 @@ def viewKey(key_slug):
         keys = Key.query.filter_by(slug=key_slug).first()
     except:
         pass
-    return render_template("view/keys.html", key=keys)
+    return render_template("view/keys.html", key=keys, hidden_footer=True, title="Chaves")
 
 @view.route("/user/<user_username>")
 def viewUser(user_username):
@@ -45,11 +45,11 @@ def viewUser(user_username):
         all_users = User.query.filter_by(username=user_username).first()
     except:
         pass
-    return render_template("view/users.html", user=all_users)
+    return render_template("view/users.html", user=all_users, hidden_footer=True, title="Usuários")
 
 @view.route("/registry/<reg_id>")
 def viewReg(reg_id):
     all_registries = Registry.query.filter_by(id=reg_id).all()
-    return render_template("view/registries.html", registries=all_registries)
+    return render_template("view/registries.html", registries=all_registries, hidden_footer=True, title="Registros")
 
 app.register_blueprint(view)
