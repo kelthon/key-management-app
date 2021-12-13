@@ -10,6 +10,13 @@ class FormUser(FlaskForm):
     password = PasswordField("password", validators=[DataRequired(), Length(min=5, max=100)])
     send = SubmitField("Cadastrar")
 
+class EditPassword(FlaskForm):
+    username = StringField("username", validators=[DataRequired(), Length(min=4, max=25)])
+    confirm_password = PasswordField("confirm_password", validators=[DataRequired()])
+    password = PasswordField("password", validators=[DataRequired()])
+    newpassword = PasswordField("newPassword", validators=[DataRequired()])
+    send = SubmitField("Confirmar")
+
 class DelFormUser(FlaskForm):
     account = StringField("Conta", validators=[DataRequired()])
     password = PasswordField("Senha", validators=[DataRequired()])
