@@ -27,7 +27,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             {% if session.get('user_auth') == True %}
             <li><a class="dropdown-item" href="{{ url_for('view.viewUser', user_username=session.get('user_username')) }}">Conta</a></li>
-            <li><a class="dropdown-item" href="{{ url_for('index') }}">Configurações</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('config') }}">Configurações</a></li>
             <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sair</a></li>
             {% else %}
             <li><a class="dropdown-item" href="{{ url_for('login') }}">Entrar</a></li>
