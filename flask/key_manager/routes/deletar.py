@@ -4,6 +4,7 @@ from key_manager.models.category import Category
 from key_manager.models.key import Key
 from key_manager.models.user import User
 from key_manager.models.registry import Registry
+from key_manager.models.news import News
 from key_manager.forms.formUser import DelFormUser
 from flask import (
     Blueprint, render_template,
@@ -15,30 +16,28 @@ delete = Blueprint("delete", __name__, url_prefix="/del")
 
 @delete.route('/category/<category_slug>')
 def delCategory(category_slug):
-    if session.get("user_auth", False) and session["user_auth"] == True:
-        if session["user_permission"] == "admin" or session["user_permission"] == "master":
-            category = Category.query.filter_by(slug=category_slug).first()
-            if category is None:
-                flash("Categoria não encontrada", "error_msg")
-            else:    
-                db.session.delete(category)
-                db.session.commit()
-                flash("Categoria deletada com Sucesso", "success_msg")
-            return redirect(url_for("view.viewIndex"))
+    if session.get("user_auth", False) and session["user_permission"] != "normal":
+        category = Category.query.filter_by(slug=category_slug).first()
+        if category is None:
+            flash("Categoria não encontrada", "error_msg")
+        else:    
+            db.session.delete(category)
+            db.session.commit()
+            flash("Categoria deletada com Sucesso", "success_msg")
+        return redirect(url_for("view.viewIndex"))
     return redirect(url_for('index'))
 
 @delete.route('/key/<key_slug>')
 def delKey(key_slug):
-    if session.get("user_auth", False) and session["user_auth"] == True:
-        if session["user_permission"] == "admin" or session["user_permission"] == "master":
-            key = Key.query.filter_by(slug=key_slug).first()
-            if key is None:
-                flash("Chave não encontrada", "error_msg")
-            else:
-                db.session.delete(key)
-                db.session.commit()
-                flash("Chave deletada com Sucesso", "success_msg")
-            return redirect(url_for("view.viewIndex"))
+    if session.get("user_auth", False) and session["user_permission"] != "normal":
+        key = Key.query.filter_by(slug=key_slug).first()
+        if key is None:
+            flash("Chave não encontrada", "error_msg")
+        else:
+            db.session.delete(key)
+            db.session.commit()
+            flash("Chave deletada com Sucesso", "success_msg")
+        return redirect(url_for("view.viewIndex"))
     return redirect(url_for('index'))
     
 @delete.route('/user', methods=['GET', 'POST'])
@@ -46,8 +45,8 @@ def delUser():
     if session.get("user_auth", False) and session["user_auth"] == True:
         delForm = DelFormUser()
         if request.method == 'POST':
-            user_username = request.form['account']
-            password = request.form['password']
+            user_username = request.form.get('account')
+            password = request.form.get('password')
             user_password = hashlib.md5(password.encode('utf8')).hexdigest()
 
             user = User.query.filter_by(username=user_username, password=user_password).first()
@@ -70,19 +69,33 @@ def delUser():
                 db.session.commit()
                 flash("Usuário deletado com Sucesso", "success_msg")
             return redirect(url_for("index"))
-        return render_template("forms/delUser.html", form=delForm, action=url_for('delete.delUser'))
+        return render_template("forms/delUser.html", form=delForm, action=url_for('delete.delUser'), hidden_footer=True, title="Deletar Usuário")
     return redirect(url_for('index'))
+
 @delete.route('/registry/<registry_id>')
 def delRegistry(registry_id):
-    if session.get("user_auth", False) and session["user_auth"] == True:
-        if session["user_permission"] == "admin" or session["user_permission"] == "master":
-            registry = Registry.query.filter_by(id=registry_id).first()
-            if registry is None:
-                flash("Registro não encontrado", "error_msg")
-            else:
-                db.session.delete(registry)
-                db.session.commit()
-                flash("Registro deletado com Sucesso", "success_msg")
-            return redirect(url_for("view.viewIndex"))
-    return redirect(url_for('index'))    
+    if session.get("user_auth", False) and session["user_permission"] != "normal":
+        registry = Registry.query.filter_by(id=registry_id).first()
+        if registry is None:
+            flash("Registro não encontrado", "error_msg")
+        else:
+            db.session.delete(registry)
+            db.session.commit()
+            flash("Registro deletado com Sucesso", "success_msg")
+        return redirect(url_for("view.viewIndex"))
+    return redirect(url_for('index'))
+
+@delete.route('/news/<news_id>')
+def delNews(news_id):
+    if session.get("user_auth", False) and session["user_permission"] != "normal":
+        news = News.query.filter_by(id=news_id).first()
+        if news is None:
+            flash("Notícia não encontrada", "error_msg")
+            return redirect(url_for('index'))
+        else:
+            db.session.delete(news)
+            db.session.commit()
+            flash("Registro deletado com Sucesso", "success_msg")
+    return redirect(url_for('index'))
+
 app.register_blueprint(delete)
