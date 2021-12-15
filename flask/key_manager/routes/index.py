@@ -21,11 +21,11 @@ def initialize():
     try:
         db.create_all()
     except:
-        print("Erro ao inicializar sqlite")
+        flash("Erro ao inicializar sqlite", "error_msg")
         
 @app.route('/')
 def index():
-    news = News.query.order_by("date").all()
+    news = News.query.order_by(News.date.desc()).all()
     return render_template('index.html', news=news, title="Gerenciador de Chaves UFCA KMAPP")
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -42,9 +42,9 @@ def login(redic='index'):
                     session["secure_login_mode"] = True
             if request.method == 'POST':
                 if formLogin.validate_on_submit():
-                    account = request.form['account']
-                    password = request.form['password']
-                    # remenber = request.form['remenberMe']
+                    account = request.form.get('account')
+                    password = request.form.get('password')
+                    # remenber = request.form.get('remenberMe')
                     hash_password = hashlib.md5(password.encode("utf8")).hexdigest()
                     try:
                         user = User.query.filter_by(email=account, password=hash_password).first()
