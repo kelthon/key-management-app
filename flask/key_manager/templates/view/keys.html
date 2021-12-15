@@ -1,40 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if key %}
-<h1 class="col-auto">Chaves</h1>
-<div class="row">
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-key col-auto" viewBox="0 0 16 16">
-        <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/>
-        <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-    </svg>
+<div class="mt-4">
+    <h1 class="col-auto">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-key col-auto" viewBox="0 0 16 16">
+            <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/>
+            <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+        </svg>
+        <span>Chaves</span>
+    </h1>
 </div>
-<div class="card">
-    <div class="card-body">
-        <h2>Nome: {{ key.name }}</h2>
-        <p>Slug: {{ key.slug }}</p>
-        {% if key.key_avaliable %}
-        <p class="text-success">Uso: Disponivel</p>
-        {% else %}
-        <p class="text-danger">Uso: Em uso</p>
-        {% endif %}
-        <p><small class="text-muted">Data de criação{{ key.creation_date}}</small><p>
-    </div>
-    </div>
-{% else %}
-<div class="card">
-    <div class="card-body">
-        <div class="row">
-            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-key col-auto" viewBox="0 0 16 16">
-                <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/>
-                <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-            </svg>
-            <div class="col-auto">
-                <p class="text-muted h3 "><small class="text-muted">Ainda não há Chaves cadastradas!</small></p>
-                <p><small class="text-muted h6">Cadastre uma nova Chave para que ela seja listada aqui</small></p>
-            </div>
+{% for key in keys %}
+<a class="text-decoration-none" href="{{url_for('view.viewKey', key_slug=key.slug)}}">
+    <div class="card mt-2">
+        <div class="card-body">
+            <h2>{{ key.name }}</h2>
+            {% if key.key_avaliable %}
+            <p class="text-success">Uso: Disponivel</p>
+            {% else %}
+            <p class="text-danger">Uso: Em uso</p>
+            {% endif %}
         </div>
     </div>
-</div>
-{% endif %}
+</a>
+{% endfor %}
 {% endblock %}

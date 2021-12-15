@@ -1,6 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea#news-content',
+        height: 500,
+        menubar: false,
+        plugins: [
+          'advlist autolink lists link image charmap print preview anchor',
+          'searchreplace visualblocks code fullscreen',
+          'insertdatetime media table paste code help wordcount'
+        ],
+        toolbar: 'undo redo | formatselect | ' +
+        'bold italic backcolor | alignleft aligncenter ' +
+        'alignright alignjustify | bullist numlist outdent indent | ' +
+        'removeformat | help',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+      });
+</script>
 <div class="container">
     <form action="{{action}}" class="form-control mt-5 mb-5" method="post">
         {{ form.csrf_token }}
@@ -8,7 +26,7 @@
         <p><small>Os campos com <span class="text-danger text-center mt-2 mb-2">*</span> são obrigatórios </small></p>
         <div class="row mt-2">
             <label class="form-label col-sm-2">Título da Notícia<span class="text-danger">*</span></label>
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 {% if news %}
                 {{ form.title(class="form-control", value=news.title) }}
                 {% else %}
@@ -18,11 +36,11 @@
         </div>
         <div class="row mt-2">
             <label class="form-label col-sm-2">Conteúdo<span class="text-danger">*</span></label>
-            <div class="col-sm-4">
+            <div class="col-sm-auto">
                 {% if news %}
-                    {{ form.content(class="form-control", value=news.content, style="height: 300px") }}
+                    {{ form.content(class="form-control", id="news-content", value=news.content, style="height: 300px") }}
                 {% else %}
-                    {{ form.content(class="form-control", style="height: 300px") }}
+                    {{ form.content(class="form-control", id="news-content", style="height: 300px") }}
                 {% endif %}
             </div>
         </div>

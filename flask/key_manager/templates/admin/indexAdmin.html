@@ -3,14 +3,14 @@
 {% block content %}
 <div class="container">
     <h1>Painel Administrativo</h1>
-    <a class="list-group-item list-group-item-action" href="{{url_for('view.viewIndex')}}">CHAVES DISPONÍVEIS</a>
-    <a class="list-group-item list-group-item-action" href="{{url_for('cadastro.newCategory')}}">CRIAR NOVA CATEGORIA</a>
-    <a class="list-group-item list-group-item-action" href="{{url_for('view.viewIndex')}}">CONSULTAR CATEGORIAS</a>
-    <a class="list-group-item list-group-item-action" href="{{url_for('cadastro.newKey')}}">CRIAR NOVA CHAVE</a>
-    <a class="list-group-item list-group-item-action" href="{{url_for('view.viewIndex')}}">CONSULTAR CHAVES</a>
-    <a class="list-group-item list-group-item-action" href="{{url_for('cadastro.newRegistry')}}">CRIAR NOVO REGISTRO</a>
-    <a class="list-group-item list-group-item-action" href="{{url_for('view.viewIndex')}}">CONSULTAR REGISTROS</a>
-    <a class="list-group-item list-group-item-action disabled" href="{{url_for('view.viewIndex')}}">GERENCIAR PERMISSÕES DOS USUÁRIOS</a>
     <a class="list-group-item list-group-item-action" href="{{url_for('cadastro.newNews')}}">PUBLICAR NOVA NOTÍCIA</a>
+    <a class="list-group-item list-group-item-action" href="{{url_for('view.viewIndex')}}">CHAVES DISPONÍVEIS</a>
+    <a class="list-group-item list-group-item-action" href="{{url_for('view.viewAllKeys')}}">CONSULTAR CHAVES</a>
+    <a class="list-group-item list-group-item-action" href="{{url_for('view.viewAllRegistries')}}">CONSULTAR REGISTROS</a>
+    <a class="list-group-item list-group-item-action" href="{{url_for('view.viewAllCategories')}}">CONSULTAR CATEGORIAS</a>
+    <a class="list-group-item list-group-item-action" href="{{url_for('cadastro.newCategory')}}">CRIAR NOVA CATEGORIA</a>
+    <a class="list-group-item list-group-item-action" href="{{url_for('cadastro.newKey')}}">CRIAR NOVA CHAVE</a>
+    <a class="list-group-item list-group-item-action" href="{{url_for('cadastro.newRegistry')}}">CRIAR NOVO REGISTRO</a>
+    <a class="list-group-item list-group-item-action " href="{{url_for('admin.manager_user_permissions')}}">GERENCIAR PERMISSÕES DOS USUÁRIOS</a>
 </div>
 {% endblock %}
