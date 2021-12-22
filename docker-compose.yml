@@ -3,6 +3,7 @@ version: '3.8'
 services:
   flask:
     image: flask:keyManagementApp
+    command: python /flask/server.py
     build: .
     volumes:
       - ./flask:/flask/
