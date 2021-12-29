@@ -1,7 +1,4 @@
-{% extends 'base.html' %}
-
-{% block content %}
-    
+{% extends 'base.html' %}{% block content %}
     <div class=" card-group row mt-4">
         <div class="card">
             <div class="card-body">
@@ -21,7 +18,6 @@
                 <h1 class="col">Chaves</h1>
                 <a class="col-auto" href="{{url_for('view.viewAllKeys')}}"><small>Ver todas</small></a>
             </div>
-            
             <div class="card-group row-cols-4 mt-2">
                 {% for key in keys %}
                 <a class="text-decoration-none" href="{{url_for('view.viewKey', key_slug=key.slug)}}">
@@ -29,11 +25,8 @@
                         <div class="card-body">
                             <h3>{{key.name}}</h3>
                             <small>
-                                {% if key.key_avaliable %}
-                                <span class="text-success">Disponível</span>
-                                {% else %}
-                                <span class="text-danger">Em uso</span>
-                                {% endif %}
+                                {% if key.key_avaliable %}<span class="text-success">Disponível</span>
+                                {% else %}<span class="text-danger">Em uso</span>{% endif %}
                             </small>
                         </div>
                     </div>
@@ -48,9 +41,7 @@
                     </div>
                 </a>
             </div>
-        {% else %}
-        {% endif %}
-        {% if categories %}    
+        {% endif %}{% if categories %}    
             <div class="row mt-5">
                 <h2 class="col">Por Categorias</h2>
                 <a class="col-auto" href="{{url_for('view.viewAllCategories')}}"><small>Ver todas</small></a>
@@ -73,10 +64,7 @@
                     </div>
                 </a>
             </div>
-            {% else %}
-            {% endif %}
-            
-        {% if registries%}
+            {% endif %}{% if registries%}
             <div class="row mt-5">
                 <h2 class="col">Últimos Registros</h2>
                 <a class="col-auto" href="{{url_for('view.viewAllRegistries')}}"><small>Ver todos</small></a>
@@ -103,11 +91,8 @@
                                     {% endfor %}
                                     <td class="col-auto text-center">{{ registry.holder_name }}</td>
                                     <td class="col-auto text-center">
-                                        {% if registry.key_return_date %}
-                                        <span>Devolvido</span>
-                                        {% else %}
-                                        <span class="text-danger">Pendente</span>
-                                        {% endif %}
+                                        {% if registry.key_return_date %}<span>Devolvido</span>
+                                        {% else %}<span class="text-danger">Pendente</span>{% endif %}
                                     </td>
                                     <td class="col-auto text-center">
                                         <a class="text-decoration-none" href="{{url_for('view.viewReg', reg_id=registry.id)}}">Vizualizar</a>
@@ -126,8 +111,8 @@
             </div>
         {% else %}
         {% endif %}
-        
-        <div class="accordion accordion-flush mt-5" id="accordionFlush">
+        <!-- Noticías -->
+        <div class="accordion accordion-flush mt-5 mb-5" id="accordionFlush">
             <h2>Notícias</h2>
             {% for noticia in news %}
             <div class="accordion-item">
@@ -149,4 +134,5 @@
                 </div>
             {% endfor %}
         </div>
+        <!-- Noticías -->
 {% endblock %}

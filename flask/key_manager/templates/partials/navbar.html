@@ -1,44 +1,44 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">KMApp</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{url_for('index')}}">Início</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="{{ url_for('view.viewIndex') }}">Chaves Disponíveis</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="{{ url_for('view.viewAllKeys') }}">Todas as Chaves</a>
-        </li>
-        {% if session.get('user_permission') == 'admin' or session.get('user_permission') == 'master'%}
-        <li class="nav-item">
-          <a class="nav-link active" href="{{ url_for('admin.admHome') }}">Administração</a>
-        </li>
-        {% endif %}
-        <li class="nav-item">
-          <a class="nav-link deactive" href="#">Procurar Chaves</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle active" href="{{ url_for('login') }}" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {% if session.get('user_auth') %}{{ session.get('user_username') }}{% else %}Entrar/Cadastrar-se{% endif %}
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            {% if session.get('user_auth') == True %}
-            <li><a class="dropdown-item" href="{{ url_for('view.viewUser', user_username=session.get('user_username')) }}">Conta</a></li>
-            <li><a class="dropdown-item" href="{{ url_for('config') }}">Configurações</a></li>
-            <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sair</a></li>
-            {% else %}
-            <li><a class="dropdown-item" href="{{ url_for('login') }}">Entrar</a></li>
-            <li><a class="dropdown-item" href="{{ url_for('cadastro.newUser')}}">Cadastrar-se</a></li>
-            {% endif %}
-          </ul>
-        </li>
-      </ul>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{url_for('index')}}">KMApp</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{url_for('index')}}">Início</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{{ url_for('view.viewIndex') }}">Chaves Disponíveis</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{{ url_for('view.viewAllKeys') }}">Todas as Chaves</a>
+          </li>
+          {% if session.get('user_permission') == 'admin' or session.get('user_permission') == 'master'%}
+          <li class="nav-item">
+            <a class="nav-link active" href="{{ url_for('admin.admHome') }}">Administração</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link deactive" href="#">Procurar Chaves</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="{{ url_for('login') }}" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {% if session.get('user_auth') %}{{ session.get('user_username') }}{% else %}Entrar/Cadastrar-se{% endif %}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              {% if session.get('user_auth') == True %}
+              <li><a class="dropdown-item" href="{{ url_for('view.viewUser', user_username=session.get('user_username')) }}">Conta</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('config') }}">Configurações</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sair</a></li>
+              {% else %}
+              <li><a class="dropdown-item" href="{{ url_for('login') }}">Entrar</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('cadastro.newUser')}}">Cadastrar-se</a></li>
+              {% endif %}
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>

@@ -20,13 +20,13 @@
 1. fix usuário logado tem acesso ao login
 1. fix bug da exclusão de conta e mesmo assim acessar site
 1. fix nome dos botões
-1. fix cadastro usuarios
 1. fix disponibilidade da chave na criação do empréstimo
 1. fundir templates
 1. fundir form de categoria
 
 ## Done
 
+1. ~~fix cadastro usuarios~~
 1. ~~implementado mensagens de redirecionamento~~
 1. ~~fix exibição do username~~
 1. ~~fix função notFound~~
