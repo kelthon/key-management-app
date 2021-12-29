@@ -45,11 +45,19 @@
                         {% endif %}
                     </td>
                 </tr>
+                {% if session.get("user_permission") != 'normal'%}
                 <tr>
                     <td colspan="8" class="col-auto text-center">
-                        <a href="{{url_for('admin.returnKey', reg_id=registry.id)}}" class="btn btn-success">Confirmar retorno de chave</a>
+                        <div class="grid">
+                    {% if registry.key_return_date == none %}
+                            <a href="{{url_for('admin.returnKey', reg_id=registry.id)}}" class="col btn btn-success">Confirmar retorno de chave</a>
+                    {% endif %}
+                            <a href="{{url_for('edit.editRegistry', registry_id=registry.id)}}" class="col btn btn-info">Editar Registro</a>
+                            <a href="{{url_for('delete.delRegistry', registry_id=registry.id)}}" class="col btn btn-danger">Excluir Registro</a>
+                        </div>
                     </td>
                 </tr>
+                {% endif %}
             </tbody>
         </table>
     </div>
