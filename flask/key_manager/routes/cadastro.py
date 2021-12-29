@@ -59,37 +59,41 @@ def newKey():
     return redirect(url_for('index'))
 @cadastro.route("/user", methods=["GET", "POST"])
 def newUser():
-    userform = FormUser()
-    if request.method == "POST":
-        name = request.form.get("name")
-        username = request.form.get("username")
-        email = request.form.get("email")
-        phone = request.form.get("phone")
-        password = request.form.get("password")
+    if session.get("user_auth", False) == False:
+        userform = FormUser()
+        if request.method == "POST":
+            name = request.form.get("name")
+            username = request.form.get("username")
+            email = request.form.get("email")
+            phone = request.form.get("phone")
+            password = request.form.get("password")
 
-        hash_passsword = hashlib.md5(password.encode("utf8")).hexdigest()
+            hash_passsword = hashlib.md5(password.encode("utf8")).hexdigest()
 
-        if userform.validate_on_submit():
-            newuser = User(name=name, username=username, email=email, phone=phone, password=hash_passsword)
-            if newuser is None:
-                db.session.add(newuser)
-                db.session.commit()
-                try:
-                    session['user_id'] = newuser.id
-                    session['user_username'] = newuser.username
-                    session['user_auth'] = True
-                    session['user_permission'] = newuser.usertype
-                    flash("Usuário cadastrado com Sucesso", "success_msg")
-                    return redirect(url_for('index'))
-                except:
-                    flash("Falha de autenticação da Sessão", "error_msg")
-                    return redirect(url_for('login'))
+            if userform.validate_on_submit():
+                newuser = User(name=name, username=username, email=email, phone=phone, password=hash_passsword)
+                if newuser is None:
+                    db.session.add(newuser)
+                    db.session.commit()
+                    try:
+                        session['user_id'] = newuser.id
+                        session['user_username'] = newuser.username
+                        session['user_auth'] = True
+                        session['user_permission'] = newuser.usertype
+                        flash("Usuário cadastrado com Sucesso", "success_msg")
+                        return redirect(url_for('index'))
+                    except:
+                        flash("Falha de autenticação da Sessão", "error_msg")
+                        return redirect(url_for('login'))
+                else:
+                    flash("Usuário já existe", "error_msg")
+                return redirect(url_for("view.viewUser",user_username=newuser.username))
             else:
-                flash("Usuário já existe", "error_msg")
-            return redirect(url_for("view.viewUser",user_username=newuser.username))
-        else:
-            flash("Falha ao validar dados", "error_msg")
-    return render_template("forms/cadastrar_usuario.html", form=userform, action=url_for('cadastro.newUser'), hidden_footer=True, title="Cadastrar Usuário")
+                flash("Falha ao validar dados", "error_msg")
+        return render_template("forms/cadastrar_usuario.html", form=userform, action=url_for('cadastro.newUser'), hidden_footer=True, title="Cadastrar Usuário")
+    else:
+        return redirect(url_for('index'))
+
 @cadastro.route('/registry', methods=['GET', 'POST'])
 def newRegistry():
     if session.get("user_auth", False) and session["user_permission"] != "normal":   
