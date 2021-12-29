@@ -97,6 +97,6 @@ def config():
     else:
         return redirect(url_for('index'))
 
-@app.route('/<notfound>')
-def notFound(notfound):
-    return (render_template('notfound.html', title="Not Found", hidden_footer=True))
+@app.errorhandler(404)
+def notFound(error):
+    return (render_template('notfound.html', title="Página não encontrada", hidden_footer=True))
