@@ -27,6 +27,12 @@
 
 ## Done
 
+1. ~~implementado mensagens de redirecionamento~~
+1. ~~fix exibição do username~~
+1. ~~fix função notFound~~
+1. ~~fix botões da administrador nos empréstimos~~
+1. ~~fix acesso indevido ao form de cadastro~~
+1. ~~fix links de configurações~~
 1. ~~fix Tamanho minímo dde nomes na criação de registros~~
 1. ~~fix Bug de mostrar campos vazios nas tabelas~~
 1. ~~fix Bug na exibição da disponibilidade da chave~~
