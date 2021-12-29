@@ -13,7 +13,7 @@
 <div class="card mt-3">
     <div class="card-body">
         <p>Nome: {{ user.name }}</p>
-        <p>Username: {{ user.username }}</p>
+        <p>Username: {{ user.username }}{% if session.get("user_permission", "normal") != "normal" %}<span class="text-muted"> ({{user.usertype}})</span>{% endif %}</p>
         <p class="text-muted">E-mail: {{ user.email }}</p>
         <p class="text-muted">Telefone: {{ user.phone }}</p>
         <p><small class="text-muted">Data de Criação: {{ user.creation_date.strftime("%d/%m/%Y às %H:%M") }}</small><p>
