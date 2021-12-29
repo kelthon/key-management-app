@@ -21,7 +21,7 @@ admin = Blueprint("admin", __name__, url_prefix="/admin")
 def admHome():
     if session.get("user_permission", "normal") != "normal":
         return render_template("admin/indexAdmin.html", hidden_footer=True, title="Painel Administrativo")
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
 
 @admin.route("/manager", methods=['GET', 'POST'])
@@ -40,7 +40,7 @@ def manager_user_permissions():
             flash("Usuário promovido com sucesso", "success_msg")
             return redirect(url_for('view.viewUser', user_username=user.username))
         return render_template("admin/gerenciarAdms.html", form= managerForm, action=url_for('admin.manager_user_permissions'), users=users, title="Gerenciar Permissões", hidden_footer=True)
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
 
 @admin.route('/return/<reg_id>')
@@ -56,7 +56,7 @@ def returnKey(reg_id):
         db.session.commit()
         flash("Registro atualizado com sucesso", "success_msg")
         return redirect(url_for('view.viewReg', reg_id=registry.id))
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
     
 app.register_blueprint(admin)

@@ -37,7 +37,7 @@ def newCategory():
                 flash("Falha ao validar dados", "error_msg")
                 return redirect(url_for("admin.admHome"))
         return render_template("forms/cadastrar_categoria.html", form=catForm, action=url_for("cadastro.newCategory"), title="Cadastrar Categoria", hidden_footer=True)
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
 
 @cadastro.route("/key", methods=["GET", "POST"])
@@ -57,7 +57,7 @@ def newKey():
                 flash("Chave criada com sucesso", "success_msg")
                 return redirect(url_for("admin.admHome"))
         return render_template("forms/cadastrar_chave.html", form=keyForm, action=url_for('cadastro.newKey'), title="Cadastrar Chave", hidden_footer=True)
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
 @cadastro.route("/user", methods=["GET", "POST"])
 def newUser():
@@ -121,7 +121,7 @@ def newRegistry():
             else:
                 flash("Falha na validação dos dados", "error_msg")
         return render_template("forms/cadastrar_emprestimo.html", form=regForm, action=url_for('cadastro.newRegistry'), title="Cadastrar Empréstimo", hidden_footer=True)
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
 
 @cadastro.route('/news', methods=['GET', 'POST'])
@@ -138,7 +138,7 @@ def newNews():
                 flash("Validação falhou", "error_msg")
         else:
             return render_template("forms/cadastrar_noticias.html", form=newsForm, action=url_for('cadastro.newNews'), title="Cadastrar Notícia", hidden_footer=True)
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
 
 app.register_blueprint(cadastro)

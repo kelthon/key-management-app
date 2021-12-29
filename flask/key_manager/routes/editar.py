@@ -37,7 +37,7 @@ def editCategory(category_slug):
                 flash("Categoria atualizada com Sucesso", "success_msg")
                 return redirect(url_for('view.viewCat', category_slug=category_slug))
         return render_template("editar_categoria.html", category=category, form=editCategoria, action=url_for('edit.editCategory', category_slug=category_slug), title="Editar Categoria", hidden_footer=True)
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
 
 @edit.route('/key/<key_slug>', methods=['GET', 'POST'])
@@ -67,7 +67,7 @@ def editKey(key_slug):
                 flash("Dados inválidos", "error_msg")
                 return redirect(url_for('view.viewIndex'))
         return render_template("editar_chave.html", key=key, form=editKey, action=url_for('edit.editKey', key_slug=key_slug), title="Editar Chave", hidden_footer=True)
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
 
 @edit.route('/user/password/<user_username>', methods=['GET', 'POST'])
@@ -115,7 +115,7 @@ def editPassword(user_username):
                     flash(msg, "error_msg")
                 return redirect(url_for("view.viewIndex"))
         return render_template("editar_senha.html", form=editpass, action=url_for('edit.editPassword', user_username=user_username), title="Editar Senha", hidden_footer=True)
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
     
 @edit.route('/user/<user_username>', methods=['GET', 'POST'])
@@ -161,7 +161,7 @@ def editUser(user_username):
                     flash(msg, "error_msg")
                 return redirect(url_for("view.viewIndex"))
         return render_template("editar_usuario.html", user=user, form=editUser, action=url_for('edit.editUser', user_username=user_username), title="Editar Dados", hidden_footer=True)
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
 
 @edit.route('/registry/<registry_id>', methods=['GET', 'POST'])
@@ -216,7 +216,7 @@ def editNews(news_id):
                 flash("Validação falhou", "error_msg")
         else:
             return render_template("forms/cadastrar_noticias.html", news=news, form=editForm, action=url_for('edit.editNews', news_id=news_id), title="Editar Notícia", hidden_footer=True)
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
 
 app.register_blueprint(edit)

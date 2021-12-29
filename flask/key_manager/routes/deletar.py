@@ -25,7 +25,7 @@ def delCategory(category_slug):
             db.session.commit()
             flash("Categoria deletada com Sucesso", "success_msg")
         return redirect(url_for("view.viewIndex"))
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
 
 @delete.route('/key/<key_slug>')
@@ -39,7 +39,7 @@ def delKey(key_slug):
             db.session.commit()
             flash("Chave deletada com Sucesso", "success_msg")
         return redirect(url_for("view.viewIndex"))
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
     
 @delete.route('/user', methods=['GET', 'POST'])
@@ -87,7 +87,7 @@ def delRegistry(registry_id):
             db.session.commit()
             flash("Registro deletado com Sucesso", "success_msg")
         return redirect(url_for("view.viewIndex"))
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
 
 @delete.route('/news/<news_id>')
@@ -101,7 +101,7 @@ def delNews(news_id):
             db.session.delete(news)
             db.session.commit()
             flash("Registro deletado com Sucesso", "success_msg")
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
 
 app.register_blueprint(delete)
