@@ -51,32 +51,27 @@ def delUser():
             password = request.form.get('password')
             user_password = hashlib.md5(password.encode('utf8')).hexdigest()
 
-            user = User.query.filter_by(username=user_username, password=user_password).first()
-            if user is None:
-                user = User.query.filter_by(email=user_username, password=user_password).first()
-            if user is None:
-                flash("Falha de autenticação", "error_msg")
-                existEmail = User.query.filter_by(email=user_username).first()
-                existUsername = User.query.filter_by(username=user_username).first()
-                if existEmail is None and existUsername is None:
-                    flash("Conta Incorreta", "error_msg")
-                else:
-                    flash("Senha Incorreta", "error_msg")
+            if session.get('user_username', False) != user_username:
+                flash("Usuário incorreto", "error_msg")
                 return redirect(url_for('delete.delUser'))
-
-            if user is None:
-                flash("Usuario não encontrado", "error_msg")
             else:
-                db.session.delete(user)
-                db.session.commit()
-                session['user_id'] = ''
-                session['user_username'] = ''
-                session['user_auth'] = False
-                session['user_permission'] = 'normal'
-                flash("Usuário deletado com Sucesso", "success_msg")
-            return redirect(url_for("index"))
+                user = User.query.filter_by(username=user_username, password=user_password).first()
+                if user is None:
+                    user = User.query.filter_by(email=user_username, password=user_password).first()
+                if user is None:
+                    flash("Senha Incorreta", "error_msg")
+                    return redirect(url_for('delete.delUser'))
+                else:
+                    db.session.delete(user)
+                    db.session.commit()
+                    session['user_id'] = ''
+                    session['user_username'] = ''
+                    session['user_auth'] = False
+                    session['user_permission'] = 'normal'
+                    flash("Usuário deletado com Sucesso", "success_msg")
+                return redirect(url_for("index"))
         return render_template("forms/delUser.html", form=delForm, action=url_for('delete.delUser'), hidden_footer=True, title="Deletar Usuário")
-    flash("Página não encotrada", "error_msg")
+    flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
 
 @delete.route('/registry/<registry_id>')
