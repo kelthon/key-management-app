@@ -21,7 +21,7 @@ edit = Blueprint("edit", __name__, url_prefix="/edit")
 
 @edit.route("/category/<category_slug>", methods=['GET', 'POST'])
 def editCategory(category_slug):
-    if session.get("user_auth", False) and session["user_auth"] == True:
+    if session.get("user_auth", False) and session.get("user_permission", "normal") != "normal":
         category = Category.query.filter_by(slug=category_slug).first()
         if category is None:
             flash("Categoria não encontrada", "error_msg")
@@ -37,11 +37,12 @@ def editCategory(category_slug):
                 flash("Categoria atualizada com Sucesso", "success_msg")
                 return redirect(url_for('view.viewCat', category_slug=category_slug))
         return render_template("editar_categoria.html", category=category, form=editCategoria, action=url_for('edit.editCategory', category_slug=category_slug), title="Editar Categoria", hidden_footer=True)
-    return redirect(url_for('index'))
+    flash("Página não encotrada", "error_msg")
+    return redirect(url_for("index"))
 
 @edit.route('/key/<key_slug>', methods=['GET', 'POST'])
 def editKey(key_slug):
-    if session.get("user_auth", False) and session["user_auth"] == True:
+    if session.get("user_auth", False) and session.get("user_permission", "normal") != "normal":
         key = Key.query.filter_by(slug=key_slug).first()
         if key is None:
             flash("Chave não encontrada", "error_msg")
@@ -66,103 +67,106 @@ def editKey(key_slug):
                 flash("Dados inválidos", "error_msg")
                 return redirect(url_for('view.viewIndex'))
         return render_template("editar_chave.html", key=key, form=editKey, action=url_for('edit.editKey', key_slug=key_slug), title="Editar Chave", hidden_footer=True)
-    return redirect(url_for('index'))
+    flash("Página não encotrada", "error_msg")
+    return redirect(url_for("index"))
 
 @edit.route('/user/password/<user_username>', methods=['GET', 'POST'])
 def editPassword(user_username):
-    # if session.get("user_auth", False) and session["user_auth"] == True:
-    user = User.query.filter_by(username=user_username).first()
-    
-    if user is None:
-        flash("Usuário não existe", "error_msg")
-        return redirect(url_for('index'))
+    if session.get("user_auth", False) and session.get("user_username", False) != user_username:
+        user = User.query.filter_by(username=user_username).first()
+        
+        if user is None:
+            flash("Usuário não existe", "error_msg")
+            return redirect(url_for('index'))
 
-    editpass = EditPassword()
-    if request.method == 'POST':
-        from key_manager.__init__ import logging
-        log = logging.getLogger('waitress')
+        editpass = EditPassword()
+        if request.method == 'POST':
+            from key_manager.__init__ import logging
+            log = logging.getLogger('waitress')
+            
+            username = request.form.get("username")
+            password = request.form.get("password")
+            hash_password = hashlib.md5(password.encode("utf8")).hexdigest()
         
-        username = request.form.get("username")
-        password = request.form.get("password")
-        hash_password = hashlib.md5(password.encode("utf8")).hexdigest()
-    
-        newPassword = request.form.get("newpassword")
-        confirm_password = request.form.get("confirm_password")
-        hash_new_password = hashlib.md5(newPassword.encode("utf8")).hexdigest()
-        
-        if confirm_password == newPassword and username == user.username and hash_password == user.password:
-            if editpass.validate_on_submit():
-                user.password = hash_new_password
-                db.session.commit()
-                flash("Senha atualizada com sucesso", "success_msg")
-                return redirect(url_for('view.viewUser', user_username=user_username))
+            newPassword = request.form.get("newpassword")
+            confirm_password = request.form.get("confirm_password")
+            hash_new_password = hashlib.md5(newPassword.encode("utf8")).hexdigest()
+            
+            if confirm_password == newPassword and username == user.username and hash_password == user.password:
+                if editpass.validate_on_submit():
+                    user.password = hash_new_password
+                    db.session.commit()
+                    flash("Senha atualizada com sucesso", "success_msg")
+                    return redirect(url_for('view.viewUser', user_username=user_username))
+                else:
+                    flash("Validação falhou", "error_msg")
+                    return redirect(url_for("view.viewIndex"))
             else:
-                flash("Validação falhou", "error_msg")
+                messages = []
+                log.info(confirm_password)
+                log.info(newPassword)
+                if confirm_password != newPassword:
+                    messages.append("Senhas não conferem") 
+                if user.password != hash_password:
+                    messages.append("Senha incorreta")
+                if username != user.username:
+                    messages.append("Usuário incorreto") 
+                for msg in messages:
+                    flash(msg, "error_msg")
                 return redirect(url_for("view.viewIndex"))
-        else:
-            messages = []
-            log.info(confirm_password)
-            log.info(newPassword)
-            if confirm_password != newPassword:
-                messages.append("Senhas não conferem") 
-            if user.password != hash_password:
-                messages.append("Senha incorreta")
-            if username != user.username:
-                messages.append("Usuário incorreto") 
-            for msg in messages:
-                flash(msg, "error_msg")
-            return redirect(url_for("view.viewIndex"))
-    return render_template("editar_senha.html", form=editpass, action=url_for('edit.editPassword', user_username=user_username), title="Editar Senha", hidden_footer=True)
-    # return redirect(url_for('index'))
+        return render_template("editar_senha.html", form=editpass, action=url_for('edit.editPassword', user_username=user_username), title="Editar Senha", hidden_footer=True)
+    flash("Página não encotrada", "error_msg")
+    return redirect(url_for("index"))
     
 @edit.route('/user/<user_username>', methods=['GET', 'POST'])
 def editUser(user_username):
-    # if session.get("user_auth", False) and session["user_auth"] == True:
-    user = User.query.filter_by(username=user_username).first()
-    
-    if user is None:
-        flash("Usuário não existe", "error_msg")
-        return redirect(url_for('index'))
+    if session.get("user_auth", False) and session.get("user_username", False) != user_username:
+        user = User.query.filter_by(username=user_username).first()
+        
+        if user is None:
+            flash("Usuário não existe", "error_msg")
+            return redirect(url_for('index'))
 
-    editUser = FormUser()
-    if request.method == 'POST':
-        newName = request.form.get("name")
-        newEmail = request.form.get("email")
-        newPhone = request.form.get("phone")
-        
-        username = request.form.get("username")
-        confirm_password = request.form.get("confirm_password")
-        password = request.form.get("password")
-        hash_password = hashlib.md5(password.encode("utf8")).hexdigest()
-        
-        if user.password == hash_password and confirm_password == password and user.username == username:
-            if editUser.validate_on_submit():
-                user.name = newName
-                user.email = newEmail
-                user.phone = newPhone
-                db.session.commit()
-                flash("Dados do usuário atualizados com Sucesso", "success_msg")
-                return redirect(url_for('view.viewUser', user_username=user_username))
+        editUser = FormUser()
+        if request.method == 'POST':
+            newName = request.form.get("name")
+            newEmail = request.form.get("email")
+            newPhone = request.form.get("phone")
+            
+            username = request.form.get("username")
+            confirm_password = request.form.get("confirm_password")
+            password = request.form.get("password")
+            hash_password = hashlib.md5(password.encode("utf8")).hexdigest()
+            
+            if user.password == hash_password and confirm_password == password and user.username == username:
+                if editUser.validate_on_submit():
+                    user.name = newName
+                    user.email = newEmail
+                    user.phone = newPhone
+                    db.session.commit()
+                    flash("Dados do usuário atualizados com Sucesso", "success_msg")
+                    return redirect(url_for('view.viewUser', user_username=user_username))
+                else:
+                    flash("Validação falhou", "error_msg")
+                    return redirect(url_for("view.viewIndex"))
             else:
-                flash("Validação falhou", "error_msg")
+                messages = []
+                if confirm_password != password:
+                    messages.append("Senhas não conferem") 
+                if user.password != hash_password:
+                    messages.append("Senha incorreta")
+                if username != user.username:
+                    messages.append("Usuário incorreto") 
+                for msg in messages:
+                    flash(msg, "error_msg")
                 return redirect(url_for("view.viewIndex"))
-        else:
-            messages = []
-            if confirm_password != password:
-                messages.append("Senhas não conferem") 
-            if user.password != hash_password:
-                messages.append("Senha incorreta")
-            if username != user.username:
-                messages.append("Usuário incorreto") 
-            for msg in messages:
-                flash(msg, "error_msg")
-            return redirect(url_for("view.viewIndex"))
-    return render_template("editar_usuario.html", user=user, form=editUser, action=url_for('edit.editUser', user_username=user_username), title="Editar Dados", hidden_footer=True)
-    # return redirect(url_for('index'))
+        return render_template("editar_usuario.html", user=user, form=editUser, action=url_for('edit.editUser', user_username=user_username), title="Editar Dados", hidden_footer=True)
+    flash("Página não encotrada", "error_msg")
+    return redirect(url_for("index"))
 
 @edit.route('/registry/<registry_id>', methods=['GET', 'POST'])
 def editRegistry(registry_id):
-    if session.get("user_auth", False) and session["user_auth"] == True:
+    if session.get("user_auth", False) and session.get("user_permission", "normal") != "normal":
         registry = Registry.query.filter_by(id=registry_id).first()
         if registry is None:
             flash("Registro não encontrado", "error_msg")
@@ -194,7 +198,7 @@ def editRegistry(registry_id):
 
 @edit.route('/news/<news_id>', methods=['GET', 'POST'])
 def editNews(news_id):
-    if session.get("user_auth", False) and session["user_permission"] != "normal":
+    if session.get("user_auth", False) and session.get("user_permission", "normal") != "normal":
         news = News.query.filter_by(id=news_id).first()
         if news is None:
             flash("Notícia não encontrada", "error_msg")
@@ -212,6 +216,7 @@ def editNews(news_id):
                 flash("Validação falhou", "error_msg")
         else:
             return render_template("forms/cadastrar_noticias.html", news=news, form=editForm, action=url_for('edit.editNews', news_id=news_id), title="Editar Notícia", hidden_footer=True)
-    return redirect(url_for('index'))
+    flash("Página não encotrada", "error_msg")
+    return redirect(url_for("index"))
 
 app.register_blueprint(edit)

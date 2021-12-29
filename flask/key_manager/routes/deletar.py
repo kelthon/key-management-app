@@ -16,7 +16,7 @@ delete = Blueprint("delete", __name__, url_prefix="/del")
 
 @delete.route('/category/<category_slug>')
 def delCategory(category_slug):
-    if session.get("user_auth", False) and session["user_permission"] != "normal":
+    if session.get("user_auth", False) and session.get("user_permission", "normal") != "normal":
         category = Category.query.filter_by(slug=category_slug).first()
         if category is None:
             flash("Categoria não encontrada", "error_msg")
@@ -25,11 +25,12 @@ def delCategory(category_slug):
             db.session.commit()
             flash("Categoria deletada com Sucesso", "success_msg")
         return redirect(url_for("view.viewIndex"))
-    return redirect(url_for('index'))
+    flash("Página não encotrada", "error_msg")
+    return redirect(url_for("index"))
 
 @delete.route('/key/<key_slug>')
 def delKey(key_slug):
-    if session.get("user_auth", False) and session["user_permission"] != "normal":
+    if session.get("user_auth", False) and session.get("user_permission", "normal") != "normal":
         key = Key.query.filter_by(slug=key_slug).first()
         if key is None:
             flash("Chave não encontrada", "error_msg")
@@ -38,11 +39,12 @@ def delKey(key_slug):
             db.session.commit()
             flash("Chave deletada com Sucesso", "success_msg")
         return redirect(url_for("view.viewIndex"))
-    return redirect(url_for('index'))
+    flash("Página não encotrada", "error_msg")
+    return redirect(url_for("index"))
     
 @delete.route('/user', methods=['GET', 'POST'])
 def delUser():
-    if session.get("user_auth", False) and session["user_auth"] == True:
+    if session.get("user_auth", False) == True:
         delForm = DelFormUser()
         if request.method == 'POST':
             user_username = request.form.get('account')
@@ -67,14 +69,19 @@ def delUser():
             else:
                 db.session.delete(user)
                 db.session.commit()
+                session['user_id'] = ''
+                session['user_username'] = ''
+                session['user_auth'] = False
+                session['user_permission'] = 'normal'
                 flash("Usuário deletado com Sucesso", "success_msg")
             return redirect(url_for("index"))
         return render_template("forms/delUser.html", form=delForm, action=url_for('delete.delUser'), hidden_footer=True, title="Deletar Usuário")
-    return redirect(url_for('index'))
+    flash("Página não encotrada", "error_msg")
+    return redirect(url_for("index"))
 
 @delete.route('/registry/<registry_id>')
 def delRegistry(registry_id):
-    if session.get("user_auth", False) and session["user_permission"] != "normal":
+    if session.get("user_auth", False) and session.get("user_permission", "normal") != "normal":
         registry = Registry.query.filter_by(id=registry_id).first()
         if registry is None:
             flash("Registro não encontrado", "error_msg")
@@ -85,11 +92,12 @@ def delRegistry(registry_id):
             db.session.commit()
             flash("Registro deletado com Sucesso", "success_msg")
         return redirect(url_for("view.viewIndex"))
-    return redirect(url_for('index'))
+    flash("Página não encotrada", "error_msg")
+    return redirect(url_for("index"))
 
 @delete.route('/news/<news_id>')
 def delNews(news_id):
-    if session.get("user_auth", False) and session["user_permission"] != "normal":
+    if session.get("user_auth", False) and session.get("user_permission", "normal") != "normal":
         news = News.query.filter_by(id=news_id).first()
         if news is None:
             flash("Notícia não encontrada", "error_msg")
@@ -98,6 +106,7 @@ def delNews(news_id):
             db.session.delete(news)
             db.session.commit()
             flash("Registro deletado com Sucesso", "success_msg")
-    return redirect(url_for('index'))
+    flash("Página não encotrada", "error_msg")
+    return redirect(url_for("index"))
 
 app.register_blueprint(delete)

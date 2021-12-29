@@ -22,7 +22,7 @@ cadastro = Blueprint("cadastro", __name__, url_prefix="/new")
 @cadastro.route("/category", methods=["GET", "POST"])
 def newCategory():
     catForm = CatForm()
-    if session.get("user_auth", False) and session["user_permission"] != "normal":
+    if session.get("user_auth", False) and session.get("user_permission", "normal") != "normal":
         if request.method == "POST":
             name = request.form.get("name")
             slug = request.form.get("slug").lower()
@@ -37,11 +37,12 @@ def newCategory():
                 flash("Falha ao validar dados", "error_msg")
                 return redirect(url_for("admin.admHome"))
         return render_template("forms/cadastrar_categoria.html", form=catForm, action=url_for("cadastro.newCategory"), title="Cadastrar Categoria", hidden_footer=True)
-    return redirect(url_for('index'))
+    flash("Página não encotrada", "error_msg")
+    return redirect(url_for("index"))
 
 @cadastro.route("/key", methods=["GET", "POST"])
 def newKey():
-    if session.get("user_auth", False) and session["user_permission"] != "normal":
+    if session.get("user_auth", False) and session.get("user_permission", "normal") != "normal":
         keyForm = KeyForm()
         keyForm.key_category_id.choices = [(cat.id, cat.name) for cat in Category.query.order_by("name")]
         if request.method == "POST":
@@ -56,7 +57,8 @@ def newKey():
                 flash("Chave criada com sucesso", "success_msg")
                 return redirect(url_for("admin.admHome"))
         return render_template("forms/cadastrar_chave.html", form=keyForm, action=url_for('cadastro.newKey'), title="Cadastrar Chave", hidden_footer=True)
-    return redirect(url_for('index'))
+    flash("Página não encotrada", "error_msg")
+    return redirect(url_for("index"))
 @cadastro.route("/user", methods=["GET", "POST"])
 def newUser():
     if session.get("user_auth", False) == False:
@@ -96,7 +98,7 @@ def newUser():
 
 @cadastro.route('/registry', methods=['GET', 'POST'])
 def newRegistry():
-    if session.get("user_auth", False) and session["user_permission"] != "normal":   
+    if session.get("user_auth", False) and session.get("user_permission", "normal") != "normal":   
         regForm = RegForm()
         regForm.user_id.choices = [(user.id, user.username) for user in User.query.order_by("username")]
         regForm.key_id.choices = [(key.id, key.name) for key in Key.query.filter_by(key_avaliable=True).order_by("name")]
@@ -118,11 +120,12 @@ def newRegistry():
             else:
                 flash("Falha na validação dos dados", "error_msg")
         return render_template("forms/cadastrar_emprestimo.html", form=regForm, action=url_for('cadastro.newRegistry'), title="Cadastrar Empréstimo", hidden_footer=True)
-    return redirect(url_for('index'))
+    flash("Página não encotrada", "error_msg")
+    return redirect(url_for("index"))
 
 @cadastro.route('/news', methods=['GET', 'POST'])
 def newNews():
-    if session.get("user_auth", False) and session["user_permission"] != "normal":
+    if session.get("user_auth", False) and session.get("user_permission", "normal") != "normal":
         newsForm = NewsForm()
         if request.method == 'POST':
             if newsForm.validate_on_submit:
@@ -134,5 +137,7 @@ def newNews():
                 flash("Validação falhou", "error_msg")
         else:
             return render_template("forms/cadastrar_noticias.html", form=newsForm, action=url_for('cadastro.newNews'), title="Cadastrar Notícia", hidden_footer=True)
-    return redirect(url_for('index'))
+    flash("Página não encotrada", "error_msg")
+    return redirect(url_for("index"))
+
 app.register_blueprint(cadastro)
