@@ -6,10 +6,15 @@ Equipe:
 - [Kelthon Balbino Alves](https://github.com/Kelthon)
 - [Isac Peixoto Costa](https://github.com/isacpxc)
 
-# Comandos Docker:
+## Comandos Docker:
 
 Reconstruir Imagem:
 ```sh
 docker-compose build
 docker-compose up -d --force
 ```
+
+## Conta administrador
+
+- Conta: admin
+- Senha: admin
