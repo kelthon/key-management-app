@@ -72,7 +72,7 @@ def editKey(key_slug):
 
 @edit.route('/user/password/<user_username>', methods=['GET', 'POST'])
 def editPassword(user_username):
-    if session.get("user_auth", False) and session.get("user_username", False) != user_username:
+    if session.get("user_auth", False) and session.get("user_username", False) == user_username:
         user = User.query.filter_by(username=user_username).first()
         
         if user is None:
@@ -120,7 +120,7 @@ def editPassword(user_username):
     
 @edit.route('/user/<user_username>', methods=['GET', 'POST'])
 def editUser(user_username):
-    if session.get("user_auth", False) and session.get("user_username", False) != user_username:
+    if session.get("user_auth", False) and session.get("user_username", False) == user_username:
         user = User.query.filter_by(username=user_username).first()
         
         if user is None:
