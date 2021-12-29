@@ -6,21 +6,21 @@
 			<form class="form-control" action="{{ action }}" method="post">
 				{{ form.csrf_token }}
 				<h1 class="text-center">Cadastrar novo usuário</h1>
-				<p class="mb-0 text-center mb-4"><small class="text-muted col-auto ">Campos com <span class="text-danger">*</span> são campos obrigátorios</small></p>
+				<p class="mb-0 text-center mb-2"><small class="text-muted col-auto ">Campos com <span class="text-danger">*</span> são campos obrigátorios</small></p>
 
-				<label class="form-label col-auto">Username<span class="text-danger">*</span></label>
+				<label class="form-label">Username<span class="text-danger">*</span></label>
 				{{ form.username(size=20, class="form-control col") }} 
 				
-				<label class="form-label col-auto">Telefone</label>
+				<label class="form-label mt-3">Telefone</label>
 				{{ form.phone(class="form-control col") }}
 						
-				<label class="form-label col-auto">Nome completo<span class="text-danger">*</span></label>
+				<label class="form-label mt-3">Nome completo<span class="text-danger">*</span></label>
 				{{ form.name(size=20, class="form-control col") }}	
 				
-				<label class="form-label col-auto">E-mail<span class="text-danger">*</span></label>
+				<label class="form-label mt-3">E-mail<span class="text-danger">*</span></label>
 				{{ form.email(size=20, class="form-control col") }}	
 					
-				<label class="form-label col-auto">Senha<span class="text-danger">*</span></label> 
+				<label class="form-label mt-3">Senha<span class="text-danger">*</span></label> 
 				{{ form.password(size=20, class="form-control col") }}	
 						
 				<div class="row align-items-center justify-content-center mt-2 mb-2 ">
@@ -28,7 +28,7 @@
 						<div class="row">
 							<p class="mb-0 text-center"><small class="text-muted col-auto "> Ao clicar em cadastrar você aceitará os nossos <a class="text-info" href="#">termos e politicas de privacidade</a></small></p>
 							<p class="mb-0 text-center"><small class="text-muted col-auto">Já possui conta criada? <a class="text-info" href='{{url_for("login")}}' class="col-auto">Entrar</a></small></p>
-							{{ form.send(class='mt-3btn btn-success g-col-auto') }}
+							{{ form.send(class='mt-3 btn btn-success g-col-auto') }}
 						</div>
 					</div>
 				</div>

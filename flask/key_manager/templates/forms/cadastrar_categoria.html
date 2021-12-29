@@ -1,21 +1,17 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %}{% block content %}
 <div class="container">
     <form action="{{action}}" class="form-control mt-5 mb-5" method="post">
         {{ form.csrf_token }}
-        <h1 class="text-center mt-2 mb-2">Cadastrar nova Categoria</h1>
-        <p><small>Os campos com <span class="text-danger text-center mt-2 mb-2">*</span> são obrigatórios </small></p>
-        <div class="row mt-2">
-            <label class="form-label col-sm-2">Nome da Categoria<span class="text-danger">*</span></label>
-            <div class="col-sm-4">
-                {{ form.name(class="form-control") }}
+        <h1 class="mt-2 mb-2">Cadastrar nova Categoria</h1>
+        <p class="text-muted mt-2 mb-2"><small>Os campos com <span class="text-danger text-center mt-2 mb-2">*</span> são obrigatórios </small></p>
+        <div class="row mt-5">
+            <label class="form-label col-auto">Nome da Categoria<span class="text-danger">*</span></label>
+            <div class="col-sm-3">
+                {{ form.name(class="form-control", placeholder="Nome da Nova Categoria") }}
             </div>
-        </div>
-        <div class="row mt-2">
-            <label class="form-label col-sm-2">Slug da Categoria<span class="text-danger">*</span></label>
-            <div class="col-sm-4">
-                {{ form.slug(class="form-control") }}
+            <label class="form-label col-auto">Slug da Categoria<span class="text-danger">*</span></label>
+            <div class="col-sm-3">
+                {{ form.slug(class="form-control", placeholder="Slug da Nova Categoria") }}
             </div>
         </div>
         {{ form.submit(class="btn btn-success mt-2") }}

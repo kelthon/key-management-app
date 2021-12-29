@@ -1,33 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
+<div class="container justify-contents-center">
     <form class="form-control mt-5 mb-5" action="{{ action }}" method="post">
-        <h1 class="text-center">Cadastrar nova Chave</h1>
+        <h1 >Cadastrar nova Chave</h1>
+        <p class="text-muted mt-2 mb-2"><small>Os campos com <span class="text-danger text-center mt-2 mb-2">*</span> são obrigatórios </small></p>
         <div class="row mt-3 mb-3">
             <label class="form-label col-sm-1">Nome<span class="text-danger">*</span></label>
             <div class="col-sm-5">
-                {{ form.name(class="form-control col") }}
+                {{ form.name(class="form-control col", placeholder="Nome da Nova Chave") }}
             </div>
         </div>
         <div class="row mt-3 mb-3">
             <label class="form-label col-sm-1">Slug<span class="text-danger">*</span></label>
             <div class="col-sm-5">
-                {{ form.slug(class="form-control col") }}
+                {{ form.slug(class="form-control col", placeholder="Slug da Nova Chave") }}
             </div>
         </div>
         <div class="row mt-3 mb-3">
             <label class="form-label col-sm-1">Categoria<span class="text-danger">*</span></label>
             <div class="col-sm-5">
-                {{ form.key_category_id(class="form-control col") }}
+                {{ form.key_category_id(class="form-select col") }}
             </div>
         <div class="row mt-3 mb-3">
             <label class="form-label col-sm-auto">Disponibilidade<span class="text-danger">*</span></label>
-            <div class="col-sm-5">
-                {{ form.key_avaliable() }}
+            <div class="col-sm-auto">
+                {{ form.key_avaliable(class="form-select") }}
             </div>
         </div>
         {{ form.csrf_token }}
-        {{ form.send(class="btn btn-success mt-3 mb-3") }}
+        <div class="col-sm-auto">
+            {{ form.send(class="btn btn-success mt-3 mb-3", value="Cadastrar") }}
+        </div>
     </form>
 </div>
 {% endblock %}

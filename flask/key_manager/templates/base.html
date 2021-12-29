@@ -18,7 +18,7 @@
    {% if get_flashed_messages() %}{% include "partials/msg.html" %}{% endif %}
    <!-- Messages -->
    <!--section-->
-   <section class="container-fluid">{% block content %}{% endblock %}</section>
+   <article class="container-fluid">{% block content %}{% endblock %}</article>
    <!--section-->
    <!--footer-->
    {% if hidden_footer != True %}{% include "partials/footer.html" %}{%endif%}
