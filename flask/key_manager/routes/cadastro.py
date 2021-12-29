@@ -69,12 +69,13 @@ def newUser():
             email = request.form.get("email")
             phone = request.form.get("phone")
             password = request.form.get("password")
-
+            
             hash_passsword = hashlib.md5(password.encode("utf8")).hexdigest()
 
             if userform.validate_on_submit():
                 newuser = User(name=name, username=username, email=email, phone=phone, password=hash_passsword)
-                if newuser is None:
+
+                if newuser is not None:
                     db.session.add(newuser)
                     db.session.commit()
                     try:
