@@ -6,7 +6,26 @@
         <a class="list-group-item list-group-item-action disabled" href="#" >Preferências</a>
         <a class="list-group-item list-group-item-action" href="{{url_for('edit.editUser', user_username=session.get('user_username', False))}}">Editar Perfil</a>
         <a class="list-group-item list-group-item-action" href="{{url_for('edit.editPassword', user_username=session.get('user_username', False))}}">Editar Senha</a>
-        <a class="list-group-item list-group-item-action" href="{{url_for('delete.delUser', user_username=session.get('user_username', False))}}">Excluir conta</a>
+        <button type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#confirmReturn">Excluir Conta</button>
+        <div class="modal fade" id="confirmReturn" tabindex="-1" aria-labelledby="confirmReturnLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmReturnLabel">Excluir Conta Permanentemente?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Aviso ao clicar 'Sim' você perderá acesso a está conta, como também a todos os dados relacionados a ela. Deseja realmente excluí-la Permanentemente?
+                    </div>
+                    <div class="modal-footer">
+                        <div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <a class="btn btn-danger" href="{{url_for('delete.delUser', user_username=session.get('user_username', False))}}">Sim Excluir Conta Permanentemente</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-sm-auto"></div>
 </div>

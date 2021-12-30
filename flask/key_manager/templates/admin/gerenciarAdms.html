@@ -9,13 +9,15 @@
             {{form.search(class="btn btn-success col-auto")}}
         </div>
     </form>
-    <div class="card-group">
-        {% for user in user %}
-        <div class="card">
-            <div class="card-body">
-                <h3>{{user.username}}}</h3>
+    <div class="card-group row-cols-1">
+        {% for user in users %}
+        <a class="text-decoration-none" href="{{url_for('view.viewUser', user_username=user.username)}}">
+            <div class="card mt-2">
+                <div class="card-body">
+                    <h3>{{user.username}}</h3>
+                </div>
             </div>
-        </div>
+        </a>
         {% endfor %}
     </div>
 {% endblock %}
