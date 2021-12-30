@@ -5,20 +5,15 @@
 1. automatizar a criação de slug
 1. limpar code
 1. temporalizar msg flash de login
-1. sistema rápido de devoluções
 
 ## TO FIX
 
 1. fix página inicial vazia
 1. fix datetime para fuso horário brasileiro
-1. fix restringir acesso as rotas de exclusão
-1. fix restringir acesso as rotas de edição
 1. fix cookies e sessions
 1. fix bloqueio de conta por muitas tentativas erradas de login
 1. fix campos vazios nos forms de edição
 1. fix front end
-1. fix usuário logado tem acesso ao login
-1. fix bug da exclusão de conta e mesmo assim acessar site
 1. fix nome dos botões
 1. fix disponibilidade da chave na criação do empréstimo
 1. fundir templates
@@ -26,6 +21,11 @@
 
 ## Done
 
+1. ~~sistema rápido de devoluções~~
+1. ~~fix bug da exclusão de conta e mesmo assim acessar site~~
+1. ~~fix restringir acesso as rotas de exclusão~~
+1. ~~fix restringir acesso as rotas de edição~~
+1. ~~fix usuário logado tem acesso ao login~~
 1. ~~fix cadastro usuarios~~
 1. ~~implementado mensagens de redirecionamento~~
 1. ~~fix exibição do username~~
