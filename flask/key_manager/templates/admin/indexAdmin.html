@@ -11,6 +11,33 @@
     <a class="list-group-item list-group-item-action" href="{{url_for('cadastro.newCategory')}}">CRIAR NOVA CATEGORIA</a>
     <a class="list-group-item list-group-item-action" href="{{url_for('cadastro.newKey')}}">CRIAR NOVA CHAVE</a>
     <a class="list-group-item list-group-item-action" href="{{url_for('cadastro.newRegistry')}}">CRIAR NOVO REGISTRO</a>
-    <a class="list-group-item list-group-item-action " href="{{url_for('admin.manager_user_permissions')}}">GERENCIAR PERMISSÕES DOS USUÁRIOS</a>
+    <a class="list-group-item list-group-item-action" href="#mangerPermission" data-bs-toggle="modal" data-bs-target="#mangerPermission">GERENCIAR PERMISSÕES DOS USUÁRIOS</a>
+    <!-- modal -->
+    <div class="modal fade" id="mangerPermission" tabindex="-1" aria-labelledby="mangerPermissionLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- form -->
+                <form action="{{action}}" class="form-control" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mangerPermissionLabel">Atualizar permissões de usuário</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Selecione Abaixo o usuário que deseja promover</p>
+                        {{form.username(class="form-select")}}
+                        {{ form.csrf_token }}
+                    </div>
+                    <div class="modal-footer">
+                        <div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            {{form.submit(class="btn btn-primary")}}
+                        </div>
+                    </div>
+                </form>
+                <!-- form -->
+                </div>
+            </div>
+        </div>
+        <!-- modal -->
 </div>
 {% endblock %}

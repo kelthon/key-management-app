@@ -20,18 +20,19 @@ admin = Blueprint("admin", __name__, url_prefix="/admin")
 @admin.route("/")
 def admHome():
     if session.get("user_permission", "normal") != "normal":
-        return render_template("admin/indexAdmin.html", hidden_footer=True, title="Painel Administrativo")
+        form = ManagerForm()
+        users = User.query.filter_by(usertype="normal").order_by("username").all()
+        form.username.choices = [(user.username, user.username) for user in users]
+        return render_template("admin/indexAdmin.html", form=form, action=url_for("admin.manager_user_permissions"), users=users, hidden_footer=True, title="Painel Administrativo")
     flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
 
 @admin.route("/manager", methods=['GET', 'POST'])
 def manager_user_permissions():
-    if session.get("user_auth", False) and session.get("user_permission", "normal") != "normal":
-        users = User.query.filter_by(usertype='normal').all()
-        managerForm = ManagerForm()
+    if session.get("user_permission", "normal") != "normal":
         if request.method == 'POST':
             user_username = request.form.get("username")
-            user = User.query.filter_by(username=user_username)
+            user = User.query.filter_by(username=user_username).first()
             if user is None:
                 flash("Usuário não encontrado", "error_msg")
                 return redirect(url_for('admin.admHome'))
@@ -39,7 +40,6 @@ def manager_user_permissions():
             db.session.commit()
             flash("Usuário promovido com sucesso", "success_msg")
             return redirect(url_for('view.viewUser', user_username=user.username))
-        return render_template("admin/gerenciarAdms.html", form= managerForm, action=url_for('admin.manager_user_permissions'), users=users, title="Gerenciar Permissões", hidden_footer=True)
     flash("Página não encontrada", "error_msg")
     return redirect(url_for("index"))
 

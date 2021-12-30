@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import SelectField, SubmitField
+from wtforms.validators import DataRequired
 
 class ManagerForm(FlaskForm):
-    username = StringField("search-username")
-    search = SubmitField("Search")
+    username = SelectField("user", validators=[DataRequired()])
+    submit = SubmitField("Promover Usuário")
