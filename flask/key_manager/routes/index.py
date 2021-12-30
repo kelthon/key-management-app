@@ -4,10 +4,12 @@
     add :  if session.get('autenticado',False)==False:
        return (redirect(url_for('login')))
 '''
+from typing import cast
 from key_manager import app
 from key_manager.models import db
 from key_manager.forms.formLogin import Login
 from key_manager.models.user import User
+from key_manager.models.key import Key
 from key_manager.models.news import News
 from flask import (
     render_template,
@@ -22,7 +24,7 @@ def initialize():
         db.create_all()
     except:
         flash("Erro ao inicializar sqlite", "error_msg")
-        
+  
 @app.route('/')
 def index():
     news = News.query.order_by(News.date.desc()).all()
@@ -66,6 +68,7 @@ def login(redic='index'):
                         # if remenber:
                         try:
                             session['user_id'] = user.id
+                            session['user_name'] = user.name.split(' ')[0]
                             session['user_username'] = user.username
                             session['user_auth'] = True
                             session['user_permission'] = user.usertype
@@ -84,8 +87,9 @@ def login(redic='index'):
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     if 'user_id' in session:
-        session['user_id'] = ''
-        session['user_username'] = ''
+        session['user_id'] = None
+        session['user_name'] = None
+        session['user_username'] = None
         session['user_auth'] = False
         session['user_permission'] = 'normal'
     return redirect(url_for('index'))

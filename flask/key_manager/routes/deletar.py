@@ -64,8 +64,9 @@ def delUser():
                 else:
                     db.session.delete(user)
                     db.session.commit()
-                    session['user_id'] = ''
-                    session['user_username'] = ''
+                    session['user_id'] = None
+                    session['user_name'] = None
+                    session['user_username'] = None
                     session['user_auth'] = False
                     session['user_permission'] = 'normal'
                     flash("Usuário deletado com Sucesso", "success_msg")
