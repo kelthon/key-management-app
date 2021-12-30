@@ -25,7 +25,7 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" href="{{ url_for('login') }}" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {% if session.get('user_auth') %}{{ session.get('user_username') }}{% else %}Entrar/Cadastrar-se{% endif %}
+              {% if session.get('user_auth') %}{{ session.get('user_name') }}{% else %}Entrar/Cadastrar-se{% endif %}
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               {% if session.get('user_auth') == True %}

@@ -80,6 +80,7 @@ def newUser():
                     db.session.commit()
                     try:
                         session['user_id'] = newuser.id
+                        session['user_name'] = newuser.name.split(' ')[0]
                         session['user_username'] = newuser.username
                         session['user_auth'] = True
                         session['user_permission'] = newuser.usertype
