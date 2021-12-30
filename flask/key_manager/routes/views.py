@@ -19,8 +19,7 @@ view = Blueprint("view", __name__, url_prefix="/view")
 def viewIndex():
     keys = Key.query.filter_by(key_avaliable=True).order_by(Key.name).all()
     cats = Category.query.order_by(Category.name).limit(7)
-    regs = Registry.query.order_by(Registry.key_loan_date.desc()).limit(7)
-    return render_template("view/indexView.html", keys=keys, categories=cats, registries=regs, key_names=Key.query, hidden_footer=True, title="Vizualização" )
+    return render_template("view/indexView.html", keys=keys, categories=cats, key_names=Key.query, hidden_footer=True, title="Vizualização" )
 
 @view.route("/category/<category_slug>")
 def viewCat(category_slug): 

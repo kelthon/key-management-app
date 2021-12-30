@@ -4,11 +4,12 @@
     add :  if session.get('autenticado',False)==False:
        return (redirect(url_for('login')))
 '''
-from typing import cast
 from key_manager import app
 from key_manager.models import db
 from key_manager.forms.formLogin import Login
 from key_manager.models.user import User
+from key_manager.models.category import Category
+from key_manager.models.registry import Registry
 from key_manager.models.key import Key
 from key_manager.models.news import News
 from flask import (
@@ -27,8 +28,12 @@ def initialize():
   
 @app.route('/')
 def index():
+    key_names = Key.query
+    keys = Key.query.order_by(Key.name).limit(7)
+    regs = Registry.query.order_by(Registry.key_loan_date.desc()).limit(7)
+    cats = Category.query.order_by(Category.name).limit(7)
     news = News.query.order_by(News.date.desc()).all()
-    return render_template('index.html', news=news, title="Gerenciador de Chaves UFCA KMAPP")
+    return render_template('index.html', key_names=key_names, keys=keys, news=news, categories=cats, registries=regs, title="Gerenciador de Chaves UFCA KMAPP")
 
 @app.route('/login', methods=['GET', 'POST'])
 @app.route('/login/<redic>', methods=['GET', 'POST'])
@@ -100,6 +105,15 @@ def config():
         return render_template("config/config.html", title="Configurações", hidden_footer=True)
     else:
         return redirect(url_for('index'))
+
+@app.route('/search')
+def search():
+    query = request.form.get('query')
+    users = User.query.filter_by(username=query).all()
+    keys = Key.query.filter_by(name=query).all()
+    news = News.query.filter_by(title=query).all()
+    cat = Category.query.filter_by(name=query).all()
+    return render_template("view/pesquisa.html", users=users, keys=keys, news=news, categories=cat, title="Resultados")
 
 @app.errorhandler(404)
 def notFound(error):
