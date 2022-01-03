@@ -82,7 +82,7 @@ def delRegistry(registry_id):
         if registry is None:
             flash("Registro não encontrado", "error_msg")
         else:
-            key = Key.query.filter_by(id=registry.key_id).all()
+            key = Key.query.filter_by(id=registry.key_id).first()
             key.key_avaliable = True
             db.session.delete(registry)
             db.session.commit()
